@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hik.mapper.GroupMapper">
+<!-- 通过id查询项目信息 -->
+	<select id="selectgroupById"
+		resultType="com.hik.bean.GroupInfoVO">
+		select
+		id,groupname,x,y,groupcode,itemnum,managerid,imgpath from
+		t_device_group where id=#{groupId}
+	</select>
+</mapper>
