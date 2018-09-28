@@ -5,3 +5,4 @@ form:option
 form:options   itemLabel     itemValue  htmlEscape
 onclick="history.go(-1)  
 学习网站：https://www.cnblogs.com/liukemng/p/3754211.html
+SpringMVC: 注解  @ModelAttribute("dpmArea")
