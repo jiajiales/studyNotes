@@ -6,3 +6,510 @@ form:options   itemLabel     itemValue  htmlEscape
 onclick="history.go(-1)  
 学习网站：https://www.cnblogs.com/liukemng/p/3754211.html
 SpringMVC: 注解  @ModelAttribute("dpmArea")
+-------------------------------------------------------
+2018/10/10
+学习js总结：
+
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ include file="/WEB-INF/views/include/taglib.jsp"%>
+<html>
+<head>
+<title>Scope Management</title>
+<meta name="decorator" content="default" />
+
+<%@include file="/WEB-INF/views/include/delivery.jsp"%>
+
+<style>
+input {
+	width: 100px;;
+}
+
+#management_object td[name^='M-'] {
+	background: #e8ffdc;
+}
+
+#management_object tr[name='data_row']:nth-child(odd) td[name='row_checkbox'],
+	tr[name='data_row']:nth-child(odd) td[name='rolaName'], tr[name='data_row']:nth-child(odd) td[name='rolaName'] select,
+	tr[name='data_row']:nth-child(odd) td[name='location'], tr[name='data_row']:nth-child(odd) td[name='location'] select,
+	tr[name='data_row']:nth-child(odd) td[name='level'], tr[name='data_row']:nth-child(odd) td[name='level'] select
+	{
+	background: #EEEEEE;
+}
+
+#sla td[name^='M-'] {
+	background: #e8ffdc;
+}
+
+#sla tr[name='data_row']:nth-child(odd) td[name='row_checkbox'], tr[name='data_row']:nth-child(odd) td[name='rolaName'],
+	tr[name='data_row']:nth-child(odd) td[name='rolaName'] select, tr[name='data_row']:nth-child(odd) td[name='location'],
+	tr[name='data_row']:nth-child(odd) td[name='location'] select, tr[name='data_row']:nth-child(odd) td[name='level'],
+	tr[name='data_row']:nth-child(odd) td[name='level'] select {
+	background: #EEEEEE;
+}
+
+#kpi td[name^='M-'] {
+	background: #e8ffdc;
+}
+
+#kpi tr[name='data_row']:nth-child(odd) td[name='row_checkbox'], tr[name='data_row']:nth-child(odd) td[name='rolaName'],
+	tr[name='data_row']:nth-child(odd) td[name='rolaName'] select, tr[name='data_row']:nth-child(odd) td[name='location'],
+	tr[name='data_row']:nth-child(odd) td[name='location'] select, tr[name='data_row']:nth-child(odd) td[name='level'],
+	tr[name='data_row']:nth-child(odd) td[name='level'] select {
+	background: #EEEEEE;
+}
+
+.navTop {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	height: 40px;
+	z-index: 1010;
+	background-color: #fff
+}
+
+.icon-remove {
+	color: #000;
+	text-decoration-color: #000;
+}
+
+.error {
+	background-color: #FF0000;
+}
+
+.bg_blue {
+	background: #ddf2ff;
+}
+
+.bg_green {
+	background: #e8ffdc;
+}
+
+.bg_red {
+	background: #ffdddd;
+}
+</style>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+第一步：取出后台传回来的数据（data是一个map集合list存入了map的方式存储的两个表的数据）
+		var data = ${empty data ? "''" : data};//如果有值就取值没有值就给个空字符串
+		var opptyPointInfoList = data["opptyPointInfoList"];//取出data中的opptyPointInfoList集合存入opptyPointInfoList
+		var opptyPointTraceList=data["opptyPointTraceList"];//取出data中的opptyPointTraceList集合存入opptyPointTraceList
+		var locationList = data["locationList"];
+		var levelList = data["levelList"];
+		var transition = data["transition"];
+		
+		var row = '<tr name="data_row">';
+		//在页面中设置一个X形状的字符  并且将数据的Id存入row_checkbox中便于后期获取
+	    row += '<td name="row_checkbox" height="26px" style="text-align:center"><a class="icon-remove" title="Delete" style="cursor:pointer;"></a><input name="id" type="hidden" value="" /></a></td>';
+	   
+	    row += '<td name="rolaName"></td>';
+	
+		row += '<td name="M-1"><input type="text" class="required" /></td>';
+		row += '<td name="M-2"><input type="text" value=""  style="width:98%"/></td>';//为输入框类型 输入框占用表格中的98%的空间
+		row += '<td name="M-3"><input type="text" value=""  style="width:98%"/></td>';
+		row += '<td name="M-4"><input type="text" value=""  style="width:98%"/></td>';
+		row += '<td name="M-5"><input type="text" value=""  style="width:98%"/></td>';
+		row += '<td name="M-6"><input type="text" value=""  style="width:98%"/></td>';
+		row += '<td name="M-7"><input type="text" value=""  style="width:98%"/></td>';
+		row += '<td name="M-8"><input type="text" value=""  style="width:98%"/></td>';
+// 		row += '<td name="id"><input type="text" value="" /></td>';
+	    row += '</tr>';	
+	    
+	    function addRow(rowno,additionalResourceList,locationList,levelList){
+			var objRow = $(row);
+			objRow.find("td[name='rowno']").text(rowno);
+			objRow.find("td[name='rolaName']").text(projectCode);
+			objRow.find("td[name='location']").append(locationList);
+			$("#management_object").append(objRow);
+		}
+
+		var row2 = '<tr name="data_row">';
+	    row2 += '<td name="row_checkbox" height="26px" style="text-align:center"><a class="icon-remove" title="Delete" style="cursor:pointer;"></a></a><input name="id" type="hidden" value="" /></td>';
+		row2 += '<td name="rolaName"></td>';
+		row2 += '<td name="M-1"><input type="text" value=""   style="width:98%"/></td>';
+		row2 += '<td name="M-2"><input type="text" value=""   style="width:98%"/></td>';
+		row2 += '<td name="M-3"><input type="text" readonly="readonly" class="Wdate" style="width:100px;" value=""  onclick="WdatePicker({dateFmt:\'yyyy-MM-dd\'});" /></td>';
+		row2 += '<td name="M-4"><input type="text" value=""  style="width:98%"/></td>';
+		row2 += '<td name="M-5"><input type="text" value=""  style="width:98%"/></td>';
+		row2 += '<td name="M-6"><input type="text" value=""  style="width:98%"/></td>';
+		row2 += '<td name="M-7"><input type="text" value=""  style="width:98%"/></td>';
+		row2 += '<td name="M-8"><input type="text" value=""  style="width:98%"/></td>';
+	    row2 += '</tr>';	
+	    
+	    function addRow2(rowno,projectCode,codeSelect,locationList,levelList){
+			var objRow = $(row2);
+			objRow.find("td[name='rowno']").text(rowno);
+			objRow.find("td[name='rolaName']").text(projectCode);
+// 			objRow.find("td[name='M-1']").append(codeSelect);  设置元素进去  （为选择框时使用）
+			objRow.find("td[name='location']").append(locationList);
+			objRow.find("td[name='level']").append(locationList);
+			$("#sla").append(objRow);
+		}
+
+	    
+		function getSelect(name,items,key,value,changeFunctionName){//选择框取出选择元素的函数
+			var select = $("<select></select>");
+			if(name){
+				select.attr("name",name);
+			}
+			if(changeFunctionName){
+				select.attr("onchange",changeFunctionName+"()");
+			}
+			var emptyOption = $("<option></option>").val("").text("---select---");
+			select.append(emptyOption);
+			for(itemKey in items){
+				var option = $("<option></option>").val(items[itemKey][value]).text(items[itemKey][key]);
+				select.append(option);
+			}
+			return select;
+		}
+	    
+		var projectCode = "${projectInfo.aProjectCode} - ${projectInfo.aCodeName}"; //js中可以将字符串拼接起来
+		var codeSelect = getSelect("",opptyPointInfoList,"opptyPointCode","id")    //调用getSelect函数注意传入的值
+
+		var resourceListSelect = getSelect("roleList",additionalResourceList,"label","value");
+		var locationListSelect = getSelect("",locationList,"label","value");
+		var levelListSelect = getSelect("",levelList,"label","value");
+		//
+	if(opptyPointInfoList){
+	    	addOpptyPointInfoListListRows();
+	    }else{
+	    	addRow(1,resourceListSelect,locationListSelect,levelListSelect);
+	    }
+if(opptyPointTraceList){  //应该是判断语句吧  没见过.................
+	addOpptyPointTraceListRows();
+}else{
+	addRow2(1,projectCode,codeSelect,levelListSelect);
+
+}
+	    
+	function addOpptyPointInfoListListRows(){//调用addOpptyPointInfoListListRows方法    数据库的数据一对一的赋值给表单
+	    	if(opptyPointInfoList.length > 0){
+		    	for(var i=0;i<opptyPointInfoList.length;i++){
+		    		var rowobj = $(row);
+			    	$(rowobj).attr("id","row_"+ i);
+			    	$(rowobj).find("td[name='row_checkbox']").find("input[name='id']").val(opptyPointInfoList[i]["id"]);
+					$(rowobj).find("td[name='rolaName']").text(projectCode);
+			    	$(rowobj).find("td[name='M-1']").find("input").val(opptyPointInfoList[i]["opptyPointCode"]);
+					$(rowobj).find("td[name='M-2']").find("input").val(opptyPointInfoList[i]["opptyPointDescription"]);
+					$(rowobj).find("td[name='M-3']").find("input").val(opptyPointInfoList[i]["predictionScale"]);
+					$(rowobj).find("td[name='M-4']").find("input").val(opptyPointInfoList[i]["discoveringPeople"]);
+					$(rowobj).find("td[name='M-5']").find("input").val(opptyPointInfoList[i]["possibility"]);
+					$(rowobj).find("td[name='M-6']").find("input").val(opptyPointInfoList[i]["nextPlan"]);
+					$(rowobj).find("td[name='M-7']").find("input").val(opptyPointInfoList[i]["help"]);
+					$(rowobj).find("td[name='M-8']").find("input").val(opptyPointInfoList[i]["helpObject"]);
+					$(rowobj).find("td[name='id']").find("input").val(opptyPointInfoList[i]["id"]).hide();
+					$("#management_object").append($(rowobj));
+		    	}
+		    }else{
+		    	
+			    addRow(1,resourceListSelect,locationListSelect,levelListSelect);
+		    }
+	    }
+	
+	function addOpptyPointTraceListRows(){
+    	if(opptyPointTraceList.length > 0){
+	    	for(var i=0;i<opptyPointTraceList.length;i++){
+	    		var rowobj = $(row2);
+// 		    	$(rowobj).attr("id","row_"+ i);
+		    	$(rowobj).find("td[name='row_checkbox']").find("input[name='id']").val(opptyPointTraceList[i]["id"]);
+				$(rowobj).find("td[name='rolaName']").text(projectCode);
+// 				var mSelect = getSelect("",opptyPointInfoList,"opptyPointCode","id");    当表单中有选择类型的元素 （选择类型的元素是从另外一张表中得来的）
+// 				mSelect.val(opptyPointTraceList[i]["opptyPiontInfoId"]);                 取到另外一个表中的id值存进去
+// 				$(rowobj).find("td[name='M-1']").append(mSelect);                        展示的是opptyPointCode的val值    这一块值得研究
+				$(rowobj).find("td[name='M-1']").find("input").val(opptyPointTraceList[i]["opptyPointCode"]);
+		    	$(rowobj).find("td[name='M-2']").find("input").val(opptyPointTraceList[i]["actionDescription"]);
+				$(rowobj).find("td[name='M-3']").find("input").val(opptyPointTraceList[i]["changeTime"]);
+				$(rowobj).find("td[name='M-4']").find("input").val(opptyPointTraceList[i]["changeTrackPerson"]);
+				$(rowobj).find("td[name='M-5']").find("input").val(opptyPointTraceList[i]["nextPlan"]);
+				$(rowobj).find("td[name='M-6']").find("input").val(opptyPointTraceList[i]["help"]);
+				$(rowobj).find("td[name='M-7']").find("input").val(opptyPointTraceList[i]["helpObject"]);
+				$(rowobj).find("td[name='id']").find("input").val(opptyPointTraceList[i]["id"]).hide();
+				$("#sla").append($(rowobj));
+	    	}
+	    }else{
+	    	
+		    addRow2(1,projectCode,codeSelect,levelListSelect);
+	    }
+    }
+
+	
+	    
+		
+
+	   
+	    
+	    $("body").on("click","#management_object_add",function(){
+			//行号从第2行开始,newRowNo=lastRow;
+			var lastRow = $("#management_object tr").length;
+			var resourceListSelect = getSelect("roleList",additionalResourceList,"label","value");
+			var locationListSelect = getSelect("",locationList,"label","value");
+			var levelListSelect = getSelect("",levelList,"label","value");
+			addRow(lastRow,resourceListSelect,locationListSelect,levelListSelect);
+// 			if(lastRow==additionalResourceList.length){
+				//$("#transition_resource_add").hide();
+// 			}
+		});
+
+		 $("body").on("click","#sla_add",function(){
+			//行号从第2行开始,newRowNo=lastRow;
+			var lastRow = $("#management_object tr").length;
+			var resourceListSelect = getSelect("roleList",additionalResourceList,"label","value");
+			var locationListSelect = getSelect("",locationList,"label","value");
+			var levelListSelect = getSelect("",levelList,"label","value");
+			var codeSelect = getSelect("",opptyPointInfoList,"opptyPointCode","id")   //新增元素的时候可以将选择框新增过去不然新增的时候没有选择框
+			addRow2(lastRow,projectCode,codeSelect,levelListSelect);
+// 			if(lastRow==additionalResourceList.length){
+				//$("#transition_resource_add").hide();
+// 			}
+		});
+
+	    
+	    $("body").on("click","tr[name='data_row'] td[name='row_checkbox'] a",function(){
+	    	$(this).closest("tr").remove();
+	    });
+	    
+	    
+	});
+	</script>
+
+</head>
+<body style="border: 1px solid red; position: relative;">
+	<div class="navTop">
+		<ul class="nav nav-tabs">
+			<li><a
+				href="${ctx}/delivery/platform/contractInfo?id=${projectInfo.id}">合同信息</a></li>
+			<li><a
+				href="${ctx}/delivery/platform/businessInfo?id=${projectInfo.id}">经营信息</a></li>
+			<li><a
+				href="${ctx}/delivery/platform/qualityInfo?id=${projectInfo.id}">质量信息</a></li>
+			<li><a
+				href="${ctx}/delivery/platform/hrInfo?id=${projectInfo.id}">人力资源信息</a></li>
+			<li class="active"><a
+				href="${ctx}/delivery/platform/opportunityPointInfo?id=${projectInfo.id}">机会点信息</a></li>
+			<li><a
+				href="${ctx}/delivery/platform/caseStudiesInfo?id=${projectInfo.id}">案例分享</a></li>
+		</ul>
+	</div>
+	<div style="overflow: auto; padding-top: 40px;">
+		<form:form id="inputForm" modelAttribute="projectInfo"
+			action="${ctx}/ito/output/platform/transitionFte" method="post"
+			class="form-horizontal" cssStyle="margin:0;">
+			<form:hidden path="id" />
+			<div class="con" style="">
+
+				<div class="tab_con">  
+                                      <!-- 			  设置列表的表头名 -->  
+					<div class="page_step2">
+						<div class="page_con">
+							<h1>AOS机会点信息</h1>
+							<table id="management_object" width="100%" cellpadding="0"
+								cellspacing="0">
+								<tr class="tb_tt">
+									<td style="width: 80px;">S.NO</td>
+									<td style="width: 150px;">项目编码</td>
+									<td style="">机会点编码<font color="red">*</font></td>
+									<td>机会点描述<font color="red">*</font></td>
+									<td>预测规模（金额）<font color="red">*</font></td>
+									<td>发现人<font color="red">*</font></td>
+									<td>可能性（A、B、C、D）</td>
+									<td>下一步计划</td>
+									<td>求助</td>
+									<td>求助对象</td>
+
+								</tr>
+							</table>
+							<div></div>
+						</div>
+					</div>
+					<a href="#javascript:;" id="management_object_add"
+						style="display: inline-block;" class="btn_add"></a>
+					<div style="height: 20px;"></div>
+
+					<div class="page_step2">
+						<div class="page_con">
+							<h1>AOS机会点端到端跟踪记录</h1>
+							<table id="sla" width="100%" cellpadding="0" cellspacing="0">
+								<tr class="tb_tt">
+									<td style="width: 80px;">S.NO</td>
+									<td>项目编码</td>
+									<td>机会点编码<font color="red">*</font></td>
+									<td>行动描述<font color="red">*</font></td>
+									<td>变更时间<font color="red">*</font></td>
+									<td>变更跟踪责任人<font color="red">*</td>
+									<td>下一步计划<font color="red">*</td>
+									<td>求助</td>
+									<td>求助对象</td>
+									<td>附件</td>
+								</tr>
+							</table>
+							<div></div>
+						</div>
+					</div>
+					<a href="#javascript:;" id="sla_add" style="display: inline-block;"
+						class="btn_add"></a>
+					<div style="height: 20px;"></div>
+
+
+				</div>
+				<div
+					style="text-align: center; 
+					 text-align: center; width: 99%;
+					">
+					<input id="btnSave" onclick="" style="display: inline;"
+						class="btn btn-primary btn_next" type="button" value="Save" />
+				</div>
+			</div>
+		</form:form>
+
+	</div>
+	<script type="text/javascript">
+			$("#btnSave").click(function(){
+				save(0,2);
+			});
+
+			function save(type,resultType){
+				var projectId = "${projectInfo.id}";
+				var oo;
+				var oox;
+				var isnext = false;
+				
+				if(projectId !== ''){  
+				var manageData =[];
+				$("#management_object").find("tr[name='data_row']").each(function(index,elment){//将表单中的元素对应好属性将其设置进实体类中
+					var obj = {};
+					obj.id = $(elment).find("td[name='row_checkbox']").find("input").val();
+					obj.projectBasicId = projectId;
+					obj.opptyPointCode = $(elment).find("td[name='M-1']").find("input").val();
+					obj.opptyPointDescription = $(elment).find("td[name='M-2']").find("input").val();
+					obj.predictionScale = $(elment).find("td[name='M-3']").find("input").val();
+					obj.discoveringPeople = $(elment).find("td[name='M-4']").find("input").val();
+					obj.possibility = $(elment).find("td[name='M-5']").find("input").val();
+					obj.nextPlan = $(elment).find("td[name='M-6']").find("input").val();
+					obj.help = $(elment).find("td[name='M-7']").find("input").val();
+					obj.helpObject = $(elment).find("td[name='M-8']").find("input").val();
+					manageData.push(obj);
+					
+					if($(elment).find("td[name='M-1']").find("input").val() == '') {//判断为空元素（常用在必填框中）
+						oo = $(elment).find("td[name='M-1']").find("input");
+						oox = "请输入机会点编码!";
+						isnext = true;
+						return false;
+					}
+					
+					if($(elment).find("td[name='M-2']").find("input").val() == '') {
+						oo = $(elment).find("td[name='M-2']").find("input");
+						oox = "请输入机会点描述!";
+						isnext = true;
+						return false;
+					}
+					
+					
+					if($(elment).find("td[name='M-3']").find("input").val() == '') {
+						oo = $(elment).find("td[name='M-3']").find("input");
+						oox = "请输入预测规模（金额）!";
+						isnext = true;
+						return false;
+					}
+					if($(elment).find("td[name='M-4']").find("input").val() == '') {
+						oo = $(elment).find("td[name='M-4']").find("input");
+						oox = "请输入发现人!";
+						isnext = true;
+						return false;
+					}
+				
+				
+				});
+				manageData = JSON.stringify(manageData);
+				
+				
+
+				var kpiData =[];
+				$("#sla").find("tr[name='data_row']").each(function(index,elment){
+					var obj = {};
+					obj.id = $(elment).find("td[name='row_checkbox']").find("input").val();
+					obj.projectBasicId = projectId;
+// 					obj.opptyPiontInfoId = $(elment).find("td[name='M-1']").find("select").val();
+// 					obj.opptyPointCode = $(elment).find("td[name='M-1']").find("select :selected").text();
+					obj.opptyPointCode = $(elment).find("td[name='M-1']").find("input").val();
+					obj.actionDescription = $(elment).find("td[name='M-2']").find("input").val();
+					obj.changeTime = $(elment).find("td[name='M-3']").find("input").val();
+					obj.changeTrackPerson = $(elment).find("td[name='M-4']").find("input").val();
+					obj.nextPlan = $(elment).find("td[name='M-5']").find("input").val();
+					obj.help = $(elment).find("td[name='M-6']").find("input").val();
+					obj.helpObject = $(elment).find("td[name='M-7']").find("input").val();
+					kpiData.push(obj);
+					
+					
+					
+
+					if($(elment).find("td[name='M-1']").find("input").val() == '') {
+						oo = $(elment).find("td[name='M-1']").find("input");
+						oox = "请输入机会点编码!";
+						isnext = true;
+						return false;
+					}
+					
+					if($(elment).find("td[name='M-2']").find("input").val() == '') {
+						oo = $(elment).find("td[name='M-2']").find("input");
+						oox = "请输入行动描述描述!";
+						isnext = true;
+						return false;
+					}
+					
+					
+					if($(elment).find("td[name='M-3']").find("input").val() == '') {
+						oo = $(elment).find("td[name='M-3']").find("input");
+						oox = "请输入变更时间!";
+						isnext = true;
+						return false;
+					}
+					if($(elment).find("td[name='M-4']").find("input").val() == '') {
+						oo = $(elment).find("td[name='M-4']").find("input");
+						oox = "请输入变更跟踪责任人!";
+						isnext = true;
+						return false;
+					}
+					if($(elment).find("td[name='M-5']").find("input").val() == '') {
+						oo = $(elment).find("td[name='M-5']").find("input");
+						oox = "请输入下一步计划!";
+						isnext = true;
+						return false;
+					}
+				
+					
+					
+					
+					
+					
+					
+				});
+				kpiData = JSON.stringify(kpiData);
+// 				window.alert(kpiData);
+				if(isnext && manageData && kpiData != "[]") {判断两个集合是否有存在必填的元素未填现象
+						alert(oox);
+						oo.focus();
+						return false;
+					}
+					
+					//将两个json字符串传递给后端
+				$.post("${ctx}/delivery/platform/saveOpptyPointInfoList",{projectId:"${projectInfo.id}",dataJson:manageData,traceData:kpiData,},function(result){
+					if(result=="success"){
+						if(resultType == '2'){
+							alert("Save data success!");					
+						}
+					}
+				});
+				}else{
+					if(resultType == '2'){
+						alert("Please select a project!");
+					}
+				}		
+				
+			}	
+			
+		</script>
+</body>
+</html>
