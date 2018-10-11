@@ -392,7 +392,7 @@ if(opptyPointTraceList){  //应该是判断语句吧  没见过.................
 					obj.helpObject = $(elment).find("td[name='M-8']").find("input").val();
 					manageData.push(obj);
 					
-					if($(elment).find("td[name='M-1']").find("input").val() == '') {//判断为空元素（常用在必填框中）
+					if($(elment).find("td[name='M-1']").find("input").val() == '') {//判断为空元素（常用在必填框中）注意：不能写  class="requre"作为前段的判断条件 那个在from表单中有效在此种情况无效                                 
 						oo = $(elment).find("td[name='M-1']").find("input");
 						oox = "请输入机会点编码!";
 						isnext = true;
