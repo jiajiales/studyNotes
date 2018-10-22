@@ -218,7 +218,9 @@ if(opptyPointTraceList){  //应该是判断语句吧  没见过.................
 				$(rowobj).find("td[name='rolaName']").text(projectCode);
 // 				var mSelect = getSelect("",opptyPointInfoList,"opptyPointCode","id");    当表单中有选择类型的元素 （选择类型的元素是从另外一张表中得来的）
 // 				mSelect.val(opptyPointTraceList[i]["opptyPiontInfoId"]);                 取到另外一个表中的id值存进去
+//                              mSelect.css("width","80px");                                             设置该选择框的宽度
 // 				$(rowobj).find("td[name='M-1']").append(mSelect);                        展示的是opptyPointCode的val值    这一块值得研究
+				
 				$(rowobj).find("td[name='M-1']").find("input").val(opptyPointTraceList[i]["opptyPointCode"]);
 		    	$(rowobj).find("td[name='M-2']").find("input").val(opptyPointTraceList[i]["actionDescription"]);
 				$(rowobj).find("td[name='M-3']").find("input").val(opptyPointTraceList[i]["changeTime"]);
