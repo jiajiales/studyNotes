@@ -1,0 +1,29 @@
+@SpringBooApplication：启动类
+@MapperScan：mybatis扫描包
+
+@Configuration：声明这是一个配置类
+@PropertySource：声明属性文件的位置（不用）
+	在springboot默认读取application.properties或yml
+
+@ConfigurationProperties(prefix="spring.mvc"):读取属性
+public class MvcProperites{
+}
+	定义成员变量，其名称要与属性文件key一致
+
+	
+@EnableConfiguration(MvcProperites.class)
+
+@Bean
+
+@RunWith
+@SpringBootTest
+
+
+@EnableEurekaServer ：开启Eureka服务
+@EnableDiscoveryClient ： 开启Eureka客户端
+
+
+zookeeper
+leader 主
+follower 从
+
