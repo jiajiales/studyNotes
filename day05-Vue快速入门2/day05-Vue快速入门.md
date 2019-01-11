@@ -517,10 +517,9 @@ var vm = new Vue({
  控制台的输出：
 
 ![1525843381094](assets/1525843381094.png)
+总结：this就是当前的Vue实列。在Vue对象内部，必须使用this才能访问到Vue中定义的data内属性、方法等。
 
  
-
-
 
 # 5.指令
 
@@ -590,9 +589,9 @@ var app = new Vue({
 说明：
 
 - v-text：将数据输出到元素内部，如果输出的数据有HTML代码，会作为普通文本输出
-- v-html：将数据输出到元素内部，如果输出的数据有HTML代码，会被渲染
+- v-html：将数据输出到元素内部，如果输出的数据有HTML代码，会被渲染（颜色、格式等）
 
-示例：
+示例：（指令需要放在标签上）
 
 HTML:
 
@@ -726,7 +725,7 @@ v-on:事件名="js片段或函数名"
 
 为了解决这个问题，Vue.js 为 `v-on` 提供了**事件修饰符**。之前提过，修饰符是由点开头的指令后缀来表示的。
 
-- `.stop` ：阻止事件冒泡
+- `.stop` ：阻止事件冒泡（向上冒泡:包含关系）
 - `.prevent`：阻止默认事件发生
 - `.capture`：使用事件捕获模式
 - `.self`：只有元素自身触发事件才执行。（冒泡或捕获的都不执行）
@@ -1151,7 +1150,7 @@ data: {
 
 
 
-## 5.7.计算属性
+## 5.7.计算属性（computed）
 
 在插值表达式中使用js表达式是非常方便的，而且也经常被用到。
 
@@ -1184,7 +1183,7 @@ var vm = new Vue({
     },
     computed:{
         birth(){// 计算属性本质是一个方法，但是必须返回结果
-            const d = new Date(this.birthday);
+            const d = new Date(this.birthday);  //用内置变量需要加this
             return d.getFullYear() + "-" + d.getMonth() + "-" + d.getDay();
         }
     }
@@ -1193,7 +1192,7 @@ var vm = new Vue({
 
 - 计算属性本质就是方法，但是一定要返回数据。然后页面渲染时，可以把这个方法当成一个变量来使用。
 
-页面使用：
+页面使用：（调用的时候不能写成birth（） ，写法像是方法但是最终是被解析成属性了）
 
 ```html
     <div id="app">
@@ -1237,8 +1236,44 @@ watch可以让我们监控一个值的变化。从而做出相应的反应。
 
  ![1525865657611](assets/1525865657611.png)
 
-
-
+# 5.8.2.深度监控
+如果监控的是一个对象，需要进行深度监控，才能监控到对象中的属性变法，例如：
+```html
+<div id="app">
+    姓名：<input type="text" v-model="person.name"> <br>
+    年龄：<input type="text" v-model="person.age">  <button @click="person.age+">
+	<br>
+	<h1>
+	{{person.name}}今年{{person.name}}岁了。
+	</h1>
+</div>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script type="text/javascript">
+    var vm = new Vue({
+        el:"#app",
+        data:{
+           person：{
+	 	name:"jack",
+		age:21
+	        }
+        },
+        watch:{
+            person:{
+	    deep:true,   //开启深度监控，可以监控到对象中属性变化
+            handler(val){  //定义监控到以后的处理方法
+	console.log(val.name +":" + val.age);
+	    
+	    }
+            }
+        }
+    })
+</script>
+```
+变化：
+以前定义监控时，person是一个函数，现在改成了对象，并且要指定两个属性：
+  depp：代表深度监控，不仅监控person变化，也监控person中的属性便变化
+  handler:就是以前的监控处理函数
+  
 # 6.组件化
 
 在大型应用开发的时候，页面可以划分成很多部分。往往不同的页面，也会有相同的部分。例如可能会有相同的头部导航。
