@@ -130,7 +130,8 @@ RabbitMQ基于Erlang语言开发：
 
 ## 1.4.五种消息模型
 
-RabbitMQ提供了6种消息模型，但是第6种其实是RPC[foo]: http://example.com/ "Optional Title Here"，并不是MQ，因此不予学习。那么也就剩下5种。
+RabbitMQ提供了6种消息模型，但是第6种其实是RPC[RPC](https://baike.baidu.com/item/%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E5%8D%8F%E8%AE%AE/6893245?fromtitle=RPC&fromid=609861&fr=aladdin"RPC")
+，并不是MQ，因此不予学习。那么也就剩下5种。
 
 但是其实3、4、5这三种都属于订阅模型，只不过进行路由的方式不同。
 
