@@ -82,7 +82,7 @@ MQ是消息通信的模型，并发具体实现。现在实现MQ的有两种主�
 
 - ActiveMQ：基于JMS
 
-- RabbitMQ：基于AMQP协议，erlang语言开发，稳定性好
+- RabbitMQ：基于AMQP协议(高级消息队列协议)，erlang语言开发，稳定性好
 - RocketMQ：基于JMS，阿里巴巴产品，目前交由Apache基金会
 - Kafka：分布式消息系统，高吞吐量
 
@@ -130,7 +130,7 @@ RabbitMQ基于Erlang语言开发：
 
 ## 1.4.五种消息模型
 
-RabbitMQ提供了6种消息模型，但是第6种其实是RPC，并不是MQ，因此不予学习。那么也就剩下5种。
+RabbitMQ提供了6种消息模型，但是第6种其实是RPC[foo]: http://example.com/ "Optional Title Here"，并不是MQ，因此不予学习。那么也就剩下5种。
 
 但是其实3、4、5这三种都属于订阅模型，只不过进行路由的方式不同。
 
