@@ -1,0 +1,587 @@
+Java考试题
+一：单选题
+1.	下列哪一种叙述是正确的（D ）
+A． abstract修饰符可修饰字段、方法和类
+B． 抽象方法的body部分必须用一对大括号{ }包住
+C． 声明抽象方法，大括号可有可无
+D． 声明抽象方法不可写出大括号（解析：被abstract修饰的内容都是暂未被实现的，比如类、方法。属性之所以不能被abstract修饰，是因为属性不存在"尚未被实现"的状态。比如你可能会联想到int age; 或是String name; 但可惜的是，在申明变量时，int会默认给age赋予初始值0，String会默认给name赋予初始值""。因此属性达不到"尚未被实现的状态"，从而不能被abstract修饰。）
+2.	如下代码
+public class Test {
+public int aMethod() {
+static int i = 0;
+i++;
+return i;
+}
+public static void main (String args[]) {
+Test test = new Test();
+test.aMethod();
+int j = test.aMethod();
+System.out.println(j);
+}
+}
+输出结果是什么？  D
+A. 0
+B. 1
+C. 2
+D. 编译失败(解析：static int i=0;在方法中声明的变量不能是static或private或final的之类的修饰词.)
+3.	下列哪种说法是正确的（ D）
+　　A． 实例方法可直接调用超类 的实例方法
+　　B． 实例方法可直接调用超类的类方法
+　　C． 实例方法可直接调用其他类的实例方法
+　　D． 实例方法可直接调用本类的类方法
+4.	如下代码：
+class Super {
+public Integer getLenght() { return new Integer(4); }
+}
+
+public class Sub extends Super {
+public Long getLenght() { return new Long(5); }
+public static void main(String[] args) {
+Super sooper = new Super();
+Sub sub = new Sub();
+System.out.println(sooper.getLenght().toString() + "," +
+ sub.getLenght().toString() );
+}
+}
+输出是什么?   E
+A. 4,4
+B. 4,5
+C. 5,4
+D. 5,5
+E. 编译失败.---------重定时不能改变返回类型
+5.	在Servlet处理请求的方式为:   C
+A.以进程的方式
+B.以程序的方式
+C.以线程的方式
+D.以响应的方式
+6.	JDBC中，用于表示数据库连接的对象是:   B
+A.Statement
+B.Connection
+C.DriverManager
+D.PreparedStatement
+7.	用于调用存储过程的对象是:   C
+A.ResultSet
+B.DriverManager
+C.CallableStatemet
+D.PreparedStatement
+8.	按照MVC设计模式，JSP用于实现:   B
+A.Model
+B.View
+C.Controller
+D.容器
+9.	如下代码
+10. public Object m() {
+11. Object o = new Float(3.14F);
+12. Object [] oa = new Object[1];
+13. oa[0] = o;
+14. o = null;
+15. oa[0] = null;
+16. print 'return 0';
+17. }
+当Float对象在第11行被创建后, 什么时候能够被垃圾回收?   C
+A. 13行以后.
+B. 14行以后.
+C. 15行以后 (解析：因为在第14行的时候 oa[0]还指向 原O的对象 所以不能是14 只有在第15行以后给空以后才能回收)
+D. 16行以后.
+10.	如下代码：
+class Base {
+Base() { System.out.print("Base"); }
+}
+public class Alpha extends Base {
+public static void main( String[] args ) {
+new Alpha(); -----调用父类无参的构造方法
+new Base();
+}
+}
+结果是什么?   B
+A. Base
+B. BaseBase
+C. 编译失败.
+D. 代码运行但没有输出.
+E. 运行时抛出异常
+11.	在J2EE中属于Web层的组件有:   A
+A.Servlet 
+B.EJB
+C.Applet
+D.HTML
+12.	在Servlet的生命周期中，容器只调用一次的方法是:   C
+A.service
+B.getServletConfig
+C.init
+D.destroy
+13.	以下关于异常的说法正确的是：D
+Ａ. 一旦出现异常，程序运行就终止了 　
+Ｂ. 如果一个方法申明将抛出某个异常，它就必须真的抛出那个异常　
+Ｃ. 在catch子句中匹配异常是一种精确匹配
+Ｄ. 可能抛出系统异常的方法是不需要申明异常的(解析：https://www.cnblogs.com/zhangdaicong/p/6127984.html)
+14.	如下代码：
+public class Foo {
+public static void main(String[] args) {
+try {
+return;
+} finally {
+System.out.println( "Finally" );
+}
+}
+}
+输出结果是什么?   A
+A. Finally
+B.编译失败
+C. 代码正常运行但没有任何输出.
+D. 运行时抛出异常
+15.	 jsp指令中isELIgnored="boolean"的意思是（C ）
+A．决定是否实现Servler的单线程模式，
+B．决定改页面是否是一个错误处理页面，
+C．决定是否支持EL表示，
+D．没有具体的含义。
+16.	下面关于Java的引用，说法正确的是：B
+Ａ. 应用实际上就是指针 　
+Ｂ. 应用本身是Primitive 　???????????????????????????
+Ｃ. 引用就是对象本身
+Ｄ. 一个对象只能被一个引用所指引
+17.	对于import java.util包，以下那种说法是错误的？C
+Ａ. Vector类属于java.util包 　
+Ｂ. Vector类放在…／java/util/目录下 　
+Ｃ. Vector类放在java.util文件中 
+Ｄ. Vector类是Sun公司的产品
+18.	在一个线程中Sleep（1000）方法，将使得该线程在多少时间后获得对CPU的控制（假设睡眠过程中不会有其他事件唤醒该线程）？C
+Ａ. 正好1000毫秒 　
+Ｂ. 1000毫秒不到 　
+Ｃ. =>1000毫秒 
+Ｄ. 不一定
+19.	在WEB-INF目录下，必须存放的文件为:   B
+A.class文件
+B.web.xml
+B.jar文件
+D.html文件
+
+20.	下面关于垃圾收集的说法正确的是：D
+Ａ. 一旦一个对象成为垃圾，就立刻被收集掉。
+Ｂ. 对象空间被收集掉之后，会执行该对象的finalize方法
+Ｃ. finalize方法和C++的析构函数是完全一回事情
+Ｄ. 一个对象成为垃圾是因为不再有引用指着它，但是线程并非如此。
+下面的语句会产生什么样的输出?  A
+System.out.println(4&7);
+  A.4（解析：4的二进制：0100  7的二进制：0111首先,二进制与运算规则:1&1=1  1&0=0  0&0=0 ）
+  B.5
+  C.6
+  D.7
+  E.0
+21.	下面的程序中，temp的最终值是什么？  B
+long temp=(int)3.9; 
+temp%=2;
+  A .0
+  B .1 （解析：(int)3.9得int型的3，向上转为long得3；3%2得1，故temp=1 ）
+  C .2  （详解：https://zhidao.baidu.com/question/2079599434818408868.html）
+  D .3
+  E .4
+22.	下面哪个不是JAVA关键字  A
+  A  integer（解析：Integer类是int原始类型的包装对象类并不是关键字）
+  B  double
+  C  float
+  D  default
+23.	Which method is used by a Servlet to place its session ID in a URL that is written to the servlet’s response output stream?    B
+A. The encodeURL method of the HttpServletRequest interface.
+B. The encodeURL method of the HttpServletResponse interface.
+C. The rewriteURL method of the HttpServletRequest interface.
+D. The rewriteURL method of the HttpServletResponse interface.
+24.	 每个使用Swing构件的程序必须有一个(   ).    D
+    A.按钮     B.标签     C.菜单     D.容器  
+25.	下列标识符（名字）命名原则中，正确的是( )  D
+  A. 类名的首字母小写 
+B. 变量和方法名的首写字母大写 
+C. 接口名的首写字母小写 
+D. 常量完全大写
+26.	类Test1定义如下： 
+1．public class Test1{ 
+2． public float aMethod（float a，float b）{ return 0;} 
+3． 
+4．} 
+将以下哪种方法插入行3是不合法的。（B） 
+A、public float aMethod（float a， float b，float c）{ return 0;} 
+B、public float aMethod（float c，float d）{ return 0;} （解析：函数的重载）
+C、public int aMethod（int a， int b）{ return 0;} 
+D、private float aMethod（int a，int b，int c）{ return 0;}
+27.	哪个语句创建了一个数组实例？ A
+A. int[] ia = new int [15]; 
+B. float fa = new float [20]; 
+C. char[] ca = “Some String”; 
+D. int ia [][] = {4, 5, 6} {1, 2, 3}; 解析: int[][] array ={{1,2,3,4,5},{1,2,3,4,5},{1,2,3,4,5}} ;  
+28.	     以public修饰的类如：public class Car{…} 则Car( )   A
+A、可被其它程序包中的类使用 B、仅能被本程序包中的类使用 
+C、不能被任意其它类使用 D、不能被其它类继承
+29.	下列哪个属于容器型构件( )   C  
+A .JEdit   B.JButton   C.JPanel   D.JTextField
+30.	Java程序的执行过程中用到一套JDK工具，其中java.exe是指( )   B
+A.Java文档生成器 B.Java解释器 
+C.Java编译器 D.Java类分解器
+31.	下列关于构造方法的叙述中，错误的是( )   C
+  A. Java语言规定构造方法名与类名必须相同 
+  B. Java语言规定构造方法没有返回值，但不用vold声明 
+  C. Java语言规定构造方法不可以重载 
+  D. Java语言规定构造方法只能通过new自动调用
+32.	构造函数何时被调用( )   B
+A.类定义时 B.创建对象时 
+C.调用对象方法时 D.使用对象的变量时
+33.	break语句( )   D
+A、只中断最内层的循环 B、只中断最外层的循环 
+C、借助于标号，可以实现任何外层循环中断 D、只中断某一层的循环
+34.	Java语言中下面哪个可以用作正确的变量名称（ ） B
+A、3D  B、name  C、extends  D、implements 
+35.	在JavaScript中如何验证一个数据是否是数字（D）
+A.如果用Integer.parseInt(value)有误就不是数字
+B. int I = value 若报错就不是数字，
+C. 没有方法验证
+D .利用isNaN(value) 返回的boolean进行判断
+------返回一个 Boolean 值，指明提供的值是否是保留值 NaN （不是数字）。
+36.	下面哪一个不能作JSP的服务器( D) 
+A. IBM WebSphere   B. BEA WebLogic   C. Tomcat    D. pws 
+下面哪项不是JSP操作指令( D ) ------???????????????????????
+A. getProperty       B. forward 
+C. include            D. import（解析：<jsp:include page="2.jsp"></jsp:include>
+<jsp:include > 动态包含     <jsp:forward> 请求转发
+<jsp:param> 设置请求参数   <jsp:useBean> 创建一个对象
+<jsp:setProperty> 给指定的对象属性赋值  <jsp:getProperty> 取出指定对象的属性值）
+37.	如果希望控件在界面上按表格行分列排列，应使用下列那种布局管理器？( B)
+A、BoxLayout  B、GridLayout  C、BorderLayout  D、FlowLouLayout
+38.	下面哪一项不是Java类访问控制关键字( C ) 
+A. public B. protected 
+C. this D. private
+39.	在配置tomcat虚拟目录时，需要打开哪个文件？ ( C ) 
+A. index.jsp          B. web.xml          C.server.xml        D.以上都不是
+40.	下面哪个不是表单标记(  D  ) 
+A. INPUT  B.RADIO  C.CHECKBOX  D. TR
+41.	下面哪项不是response对象的方法( C ) 
+A. setContentType(String contentTypestr) 
+B. setHeader(String headername,String headervalue) 
+C. getParameter(String str) 
+D. sendError(int errorcode)
+42.	以下( B  )是编写Servlet必须导入的包. 
+A.java.sql.* B.java.servlet.* C.java.util.* D.java.lang.*
+43.	下面哪项不属于SQL语句的子类(  D ) 
+A. 数据定义语言(DDL) 
+B. 数据查询语言(DQL) 
+C. 事务控制语言(TCL) 
+D. 数据插入语言 (DIL)
+44.	选出所有正确的答案
+ public class Outer{
+ public void someOuterMethod() {
+ // Line 3
+ }
+ public class Inner{}
+ public static void main( String[]argv ) {
+ Outer o = new Outer();
+ // Line 8
+ }
+ }
+Which instantiates an instance of Inner?  A  
+A. new Inner(); // At line 3
+B. new Inner(); // At line 8
+C. new o.Inner(); // At line 8
+D. new Outer.Inner(); // At line 8
+二：多选题
+1.	下列属于jsp中注释的有(  AD )
+ A．<%--  与 --%>
+ B． /
+ C． /** 与 **/
+D．  <!-- 与 -->
+2.	按照学生平均成绩(avg_grade) 将students表中的数据检索出来，下面SQL语句正确的是(  ACD ) 
+A) SELECT * FROM students ORDER BY avg_grade 
+B) SELECT * FROM students GROUP BY avg_grade ASC 
+C) SELECT * FROM students ORDER BY avg_grade DESC 
+D) SELECT * FROM students ORDER by avg_grade asc
+3.	下列是jsp作用域的通信对象的有(  ABC    )
+ A．Session
+B.  application
+ C.pageContext
+D.cookie（解析;jsp的9大内置对象
+request
+response
+session
+application
+exception
+page
+config
+out
+pageContext
+）
+4.	在接口中以下哪条定义是正确的? ( AB  )
+A. void methoda();
+B. public double methoda();
+C. public final double methoda();
+D. static void methoda(double d1);
+E. protected void methoda(double d1);
+5.	  下面哪个语句正确地声明一个整型的二维数组？CDE 
+  A. int   a[][]   =   new   int[][]；     
+  B. int   a[10][10]   =   new   int[][]；     
+  C. int   a[][]   =   new   int[10][10]；     
+  D. int   [][]a   =   new   int[10][10]；     
+  E. int   []a[]   =   new   int[10][10]；
+6.	下面哪些不是java的简单数据类型?    BC
+A. short  B. Boolean  C. Double  D. float
+7.	下面哪些语句能够正确地生成5个空字符串？ AB         
+  A.String   a[]=new   String[5]；for(int   i=0；i<5；a[i++]=“”)；     
+  B.String   a[]={“”，“”，“”，“”，“”}；     
+  C.String   a[5]；     
+  D.String[5]a；     
+  E.String   []a=new   String[5]；for(int   i=0；i<5；a[i++]=null)；
+8.	下列说法错误的有（ BCD）
+　A． 数组是一种对象
+　B． 数组属于一种原生类
+　C． int number=[]={31,23,33,43,35,63}
+　D． 数组的大小可以任意改变
+9.	不能用来修饰interface的有（ACD ）
+　A．private  B．public  C．protected  D．static
+10.	下列说法错误的有（ACD ）
+　A． 在类方法中可用this来调用本类的类方法
+　B． 在类方法中调用本类的类方法时可直接调用
+　C． 在类方法中只能调用本类中的类方法
+　D． 在类方法中绝对不能调用实例方法
+11.	如下代码
+class A {
+A() { }
+}
+
+class B extends A {
+}
+哪两个说明是正确的？  BD
+A. B类的构造器应该是 public.
+B. B类的构造器应该是没有参数
+C. B类的构造器应该调用this().
+D. B类的构造器应该调用super().
+12.	下列标识符不合法的有（ ACD）
+　A．new  B．$Usdollars  C．1234  D．car.taxi
+13.	在接口中以下哪条定义是正确的?   AB
+A. void methoda();
+B. public double methoda();
+C. public final double methoda();
+D. static void methoda(double d1);
+E. protected void methoda(double d1);
+14.	以下哪四个能使用throw抛出?   ADEF
+A. Error
+B. Event
+C. Object
+D. Throwable
+E. Exception
+F. RuntimeException（解析：Error Exception 都是Throwable的子类 RunTimeException 是Exception的子类）
+15.	javax.Servlet的包中，属于类的是:   BC
+A.Servlet
+B.GenericServlet
+C.ServletException
+D.ServletContext
+16.	如下代码:
+public class X {
+public X aMethod() { return this;}
+}
+public class Y extends X {
+  
+}
+哪两个方法能加到Y类的定义中?    CE
+A. public void aMethod() {}
+B. private void aMethod() {}
+C. public void aMethod(String s) {
+D. private Y aMethod() { return null; }
+E. public X aMethod() { return new Y(); }
+17.	对该段代码描述正确的有<% int i = Integer.parseInt(request.getParemeter(“value”)) %>(  BDC  )        
+A) 不会有错
+B)  当value与int 类型不匹配时回报错
+C )  当value＝＂＂时会报错
+      D)　为了安全起见应该将该段代码放在try{}和catch(){}之间
+18.	选出所有正确的答案
+Which two are equivalent?     BG
+A. <%= YoshiBean.size%>
+B. <%= YoshiBean.getSize()%>
+C. <%= YoshiBean.getProperty("size")%>
+D. <JSP:getProperty id="YoshiBean" param="size"/>
+E. <jsp:getProperty name="YoshiBean" param="size"/>
+F. <jsp:getProperty id="YoshiBean" property="size"/>
+G. <jsp:getProperty name="YoshiBean" property="size"/>
+19.	下面哪三个描述是正确的？   BCE
+A. 默认构造器初始化方法变量
+B. 默认构造器有和它所在类相同的访问修饰词.
+C. 默认构造器调用其父类的无参构造器.
+D. 如果一个类没有无参构造器,编译器会它创建一个默认构造器.
+E. 只有当一个类没有任何构造器时，编译器会为它创建一个默认构造器
+20.	哪二种声明防止方法覆盖？   AD
+A、final void methoda() {}
+B、void final methoda() {}
+C、static void methoda() {}
+D、static final void methoda() {}
+E、final abstract void methoda() {}
+三：简答题
+1.	JSP和Servlet有哪些相同点和不同点，他们之间的联系是什么？ 
+JSP是Servlet技术的扩展，本质上是Servlet的简易方式，更强调应用的外表表达。JSP编译后是"类servlet"。Servlet和JSP最主要的不同点在于，Servlet的应用逻辑是在Java文件中，并且完全从表示层中的HTML里分离开来。而JSP的情况是Java和HTML可以组合成一个扩展名为.jsp的文件。JSP侧重于视图，Servlet主要用于控制逻辑。
+
+2.	swtich是否能作用在byte上，是否能作用在long上，是否能作用在String上?
+switch（expr1）中，expr1是一个整数表达式。因此传递给 switch 和 case 语句的参数应该是 int、 short、 char 或者 byte。long,string 都不能作用于swtich。
+3.	如何利用ServletContext和ServletConfig对象获得初始化参数
+	String psw = config.getInitParameter("psw");		
+	ServletContext ss = config.getServletContext();
+	String ppp = ss.getInitParameter("name");
+
+4.	如何用css约束一个层不可见？
+  <div style="display:none"> </div>  -----表示不可见  (display:显示)
+  <div style="display:block"> </div>------表示可见
+  
+5.	在表单中存在一组名称为checkbox1的多选框，如何才能取得这些多选框内的值？
+在页面中用javaScript方式取值
+<script>
+      function  sss(){
+         var str = document.getElementsByName("checkbox1");   
+         var checkValue = new Array();      
+         for(var i=0;i<str.length;i++){
+            if(str[i].checked){
+              alert(str[i].value);
+            }
+         }      
+      }    
+</script>
+Function sss()
+ Var str=document.getElementsByName(“checkbox1”);
+ Var checkValue=new Array()
+For(var i=0;i<str.length;i++){
+If(str[i].checked){
+Alert(str[i].value);
+}
+}
+  在Servlet中取值
+   String str[] = request.getParameterValues("checkbox1");
+6.	说出数据连接池的工作机制是什么?
+J2EE服务器启动时会建立一定数量的池连接，并一直维持不少于此数目的池连接。客户端程序需要连接时，池驱动程序会返回一个未使用的池连接并将其标记为忙。如果当前没有空闲连接，池驱动程序就新建一定数量的连接，新建连接的数量由配置参数决定。当使用的池连接调用完成后，池驱动程序将此连接表记为空闲，其他调用就可以使用这个连接。
+
+7.	多线程有几种实现方法,都是什么?同步有几种实现方法,都是什么? 
+多线程有两种实现方法，分别是继承Thread类与实现Runnable接口 
+同步的实现方面有两种，分别是synchronized,wait与notify
+
+
+
+8.	一个页面在打开时，需要处理一些事情（比如弹出一个广告页），需要定义窗口的什么事件？
+<script>
+        window.onload=function(){…}
+</script>
+
+或是
+<body onload="">
+9.	HTML的Form和XFORM的区别
+
+10.	描述forward 和redirect的区别
+forward是服务器请求资源，服务器直接访问目标地址的URL，目标地址可以接收request 请求参数，然后把结果发给浏览器，浏览器根本不知道服务器发送的内容是从哪儿来的，所以它的地址栏中还是原来的地址。
+redirect就是服务端根据逻辑,发送一个状态码,告诉浏览器重新去请求哪个地址，浏览器会重新进行请求，此时不能用request传值，浏览器的地址栏会变成新的地址
+
+11.	Static变量是什么含义
+   static是静态变量,就是变量值不随函数执行结束而消失，下次调用同一函数时，上次所赋予的值仍存在。
+12.	垃圾回收器的基本原理是什么？垃圾回收器可以马上回收内存吗？有什么办法主动通知虚拟机进行垃圾回收
+对于GC来说，当程序员创建对象时，GC就开始监控这个对象的地址、大小以及使用情况。通常，GC采用有向图的方式记录和管理堆(heap)中的所有对象。通过这种方式确定哪些对象是"可达的"，哪些对象是"不可达的"。当GC确定一些对象为"不可达"时，GC就有责任回收这些内存空间。可以。程序员可以手动执行System.gc()，通知GC运行，但是Java语言规范并不保证GC一定会执行。
+
+13.	Overload和Override的区别。Overloaded的方法是否可以改变返回值的类型?
+   方法的重写Overriding和重载Overloading是Java多态性的不同表现。重写Overriding是父类与子类之间多态性的一种表现，重载Overloading是一个类中多态性的一种表现。如果在子类中定义某方法与其父类有相同的名称和参数，我们说该方法被重写 (Overriding)。子类的对象使用这个方法时，将调用子类中的定义，对它而言，父类中的定义如同被“屏蔽”了。如果在一个类中定义了多个同名的方法，它们或有不同的参数个数或有不同的参数类型，则称为方法的重载(Overloading)。Overloaded的方法是可以改变返回值的类型。
+
+14.	说出Servlet的生命周期，并说出Servlet和CGI的区别
+Servlet被服务器实例化后，容器运行其init方法，请求到达时运行其service方法，service方法自动派遣运行与请求对应的doXXX方法（doGet，doPost）等，当服务器决定将实例销毁的时候调用其destroy方法。
+与cgi的区别在于servlet处于服务器进程中，它通过多线程方式运行其service方法，一个实例可以服务于多个请求，并且其实例一般不会销毁，而CGI对每个请求都产生新的进程，服务完成后就销毁，所以效率上低于servlet
+四：编程题
+1.	请编写一JSP程序，它提供一个征求客户意见的文本区，在客户提交意见后，它能将意见及其他客户以前提交的意见一起显示出来。
+
+2.	写一个算法对1，8，5，2，4，9，7进行顺序排列。
+   public class OrderbyArray {
+	//冒泡排序 Bubble Sort 最简单的排序方法是冒泡排序方法
+    public int[] orderArray(int[] array){
+    	for(int i=0;i<array.length;i++){
+    		for(int j=i;j<array.length;j++){
+    			if(array[i]>array[j]){
+    				int s = array[i];
+    				array[i] = array[j];
+    				array[j] = s;
+    			}
+    		}
+    	}
+    	return array;
+    }
+	public static void main(String[] args) {
+		int [] array = {1,8,5,2,4,9,7};
+		OrderbyArray order = new OrderbyArray();
+		array = order.orderArray(array);          
+	}
+}
+3.	写一段Jdbc连接Oracle的程序,并实现数据查询。
+创建一个连接数据库的工具类
+  import java.sql.*;
+   public class DbUtil {
+   public static Connection getConnection(){
+	   String driver = "";
+	   String url = "";
+	   String name = "scot";
+	   String psw = "123";
+	   Connection conn = null;	   
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url,name,psw);
+		} catch (ClassNotFoundException e) {			
+			e.printStackTrace();
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}		
+		return conn;
+   }
+}
+import java.sql.*;
+public class SearchInfo {
+   public void searchInfo(int id){
+	   Connection conn = null;
+	   PreparedStatement pstat = null;
+	   ResultSet res = null;
+	   String sql = "select * from users where id=?";
+	   conn = DbUtil.getConnection();
+	   try {
+		pstat = conn.prepareStatement(sql);
+		pstat.setInt(1, id);
+		res = pstat.executeQuery();
+		while(res.next()){
+			String name = res.getString("name");
+		}
+	} catch (SQLException e) {		
+		e.printStackTrace();
+	}
+   }
+}
+4.	请利用JSP编写一简易的购物车程序，它包括一购物界面及往购物车中添加商品与删除商品功能，并能将用户当前已购的所有商品显示出来。
+
+
+5.	写一个Singleton（单例模式）出来。
+public class LazySingleton {
+	private static LazySingleton instance = null;
+
+	// 默认的私有的构造方法,保证外界无法直接实例化
+	private LazySingleton() {
+	}
+
+	// 静态方法,返回此类的唯一实例
+	public  static LazySingleton getInstance() {
+		if (instance == null) {
+			instance = new LazySingleton();
+		}
+		return instance;
+	}
+	
+	public void pp(){
+		System.out.println("lazy ok");
+	}
+}
+6.	用循环控制语句打印输出：1+3+5+…….+99=？结果。
+        int sum = 0;
+		for(int i=1;i<100;i+=2){
+			sum = sum+i;
+		}
+		System.out.println("1+3+5+...+99 = "+sum);
+7.	请编写一JSP程序，它能根据输入的订单号查寻出该订单的详细信息，包括订单用户名及价钱，其中订单号以请求参数的形式传给该JSP。订单信息都保存在SQLSERVER数据库中。并要求将查寻到的订单信息以表格的形式显示给用户。
+IBM笔试题
+注：IBM笔试题一小时之内完成，题目全部用英文描述，这里用中文表述
+
+一、名词解释
+此题大概有15个左右，还有一些记不清了
+1、Eclipse
+2、J2EE
+3、EJB
+4、Ajax
+5、Web service
+6、
