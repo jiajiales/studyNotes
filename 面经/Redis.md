@@ -9,6 +9,8 @@ Redis
 Redis简介
 =========
 
+
+redis面试题：https://www.cnblogs.com/jasontec/p/9699242.html
 ### 关于关系型数据库和nosql数据库
 
 >   关系型数据库是基于关系表的数据库，最终会将数据持久化到磁盘上，而nosql数据
