@@ -80,19 +80,19 @@ Starters可以理解为启动器，它包含了一系列可以集成到应用里
 Starters包含了许多项目中需要用到的依赖，它们能快速持续的运行，都是一系列得到支持的管理传递性依赖。具体请看这篇文章《Spring Boot Starters启动器》。
    
 **12、如何在 Spring Boot 启动的时候运行一些特定的代码？**   
-可以实现接口 ApplicationRunner 或者 CommandLineRunner，这两个接口实现方式一样，它们都只提供了一个 run 方法，具体请看这篇文章《Spring Boot Runner启动器》。
+可以实现接口 ApplicationRunner 或者 CommandLineRunner，这两个接口实现方式一样，它们都只提供了一个 run 方法，具体请看这篇文章《Spring Boot Runner启动器》。    
 **13、Spring Boot 有哪几种读取配置的方式？**   
-Spring Boot 可以通过 @PropertySource,@Value,@Environment, @ConfigurationProperties 来绑定变量，具体请看这篇文章《Spring Boot读取配置的几种方式》。
+Spring Boot 可以通过 @PropertySource,@Value,@Environment, @ConfigurationProperties 来绑定变量，具体请看这篇文章《Spring Boot读取配置的几种方式》。    
 **14、Spring Boot 支持哪些日志框架？推荐和默认的日志框架是哪个？**   
-Spring Boot 支持 Java Util Logging, Log4j2, Lockback 作为日志框架，如果你使用 Starters 启动器，Spring Boot 将使用 Logback 作为默认日志框架，具体请看这篇文章《Spring Boot日志集成》。   
-**15、SpringBoot 实现热部署有哪几种方式？**   
-主要有两种方式：   
-   
-Spring Loaded   
-   
-Spring-boot-devtools   
-   
-Spring-boot-devtools 使用方式可以参考这篇文章《Spring Boot实现热部署》。
+Spring Boot 支持 Java Util Logging, Log4j2, Lockback 作为日志框架，如果你使用 Starters 启动器，Spring Boot 将使用 Logback 作为默认日志框架，具体请看这篇文章《Spring Boot日志集成》。    
+**15、SpringBoot 实现热部署有哪几种方式？**      
+主要有两种方式：     
+    
+Spring Loaded      
+    
+Spring-boot-devtools      
+    
+Spring-boot-devtools 使用方式可以参考这篇文章《Spring Boot实现热部署》。    
 **16、你如何理解 Spring Boot 配置加载顺序？**   
 在 Spring Boot 里面，可以使用以下几种方式来加载配置。   
 1）properties文件；
