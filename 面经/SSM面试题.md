@@ -4,6 +4,41 @@
  ![28b6f2225f26106e7bab6cb44322ef17](media/28b6f2225f26106e7bab6cb44322ef17.png)
 ### Spring的面试题：
 
+### 首先你需要知道的知识
+在IoC容器启动之后，并不会马上就实例化相应的bean，此时容器仅仅拥有所有对象的BeanDefinition(BeanDefinition：是容器依赖某些工具加载的XML配置信息进行解析和分析，并将分析后的信息编组为相应的BeanDefinition)。只有当getBean()调用时才是有可能触发Bean实例化阶段的活动
+
+#### 为什么说有可能触发Bean实例化阶段？
+
+因为当对应某个bean定义的getBean()方法第一次被调用时，不管是显示的还是隐式的，Bean实例化阶段才会被触发，第二次被调用则会直接返回容器缓存的第一次实例化完的对象实例(因为默认是singleton单例，当然，这里的情况prototype类型的bean除外)
+
+##该篇博客主要阐述
+#### 1、Bean的一生过程
+##### 2、Bean的后置处理器
+
+### 一、Bean的一生过程
+#### 先来看以下的图(Bean的一生)
+ ![20180426085835757](media/20180426085835757.png)
+
+#### 可以简述为以下九步
+
+1.实例化bean对象(通过构造方法或者工厂方法)
+
+2.设置对象属性(setter等)（依赖注入）
+
+3.如果Bean实现了BeanNameAware接口，工厂调用Bean的setBeanName()方法传递Bean的ID。（和下面的一条均属于检查Aware接口）
+
+4.如果Bean实现了BeanFactoryAware接口，工厂调用setBeanFactory()方法传入工厂自身
+
+5.将Bean实例传递给Bean的前置处理器的postProcessBeforeInitialization(Object bean, String beanname)方法
+
+6.调用Bean的初始化方法
+
+7.将Bean实例传递给Bean的后置处理器的postProcessAfterInitialization(Object bean, String beanname)方法
+
+8.使用Bean
+
+9.容器关闭之前，调用Bean的销毁方法
+
 **1 Spring 框架有哪些主要模块？**
 Spring 框架至今已集成了 20 多个模块 。 这些模块主要被分如下图所示的核心容器 、 数据访问 / 集成 、Web、AOP （面向切面编程） 、 工具 、 消息和测试模块 。
 
