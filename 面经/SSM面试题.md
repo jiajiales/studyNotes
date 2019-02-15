@@ -113,40 +113,30 @@ Mybatis在处理${}时，就是把${}替换成变量的值。
     </select>
 
 
-**9、通常一个Xml映射文件，都会写一个Dao接口与之对应，请问，这个Dao接口的工作原理是什么？Dao接口里的方法，参数不同时，方法能重载吗？**
+**9、通常一个Xml映射文件，都会写一个Dao接口与之对应，请问，这个Dao接口的工作原理是什么？Dao接口里的方法，参数不同时，方法能重载吗？**   
+Dao接口，就是人们常说的Mapper接口，接口的全限名，就是映射文件中的namespace的值，接口的方法名，就是映射文件中MappedStatement的id值，接口方法内的参数，就是传递给sql的参数。Mapper接口是没有实现类的，当调用接口方法时，接口全限名+方法名拼接字符串作为key值，可唯一定位一个MappedStatement，举例：com.mybatis3.mappers.StudentDao.findStudentById，可以唯一找到namespace为com.mybatis3.mappers.StudentDao下面id = findStudentById的MappedStatement。在Mybatis中，每一个<select>、<insert>、<update>、<delete>标签，都会被解析为一个MappedStatement对象。   
+       Dao接口里的方法，是不能重载的，因为是全限名+方法名的保存和寻找策略。   
+       Dao接口的工作原理是JDK动态代理，Mybatis运行时会使用JDK动态代理为Dao接口生成代理proxy对象，代理对象proxy会拦截接口方法，转而执行MappedStatement所代表的sql，然后将sql执行结果返回。
 
-        Dao接口，就是人们常说的Mapper接口，接口的全限名，就是映射文件中的namespace的值，接口的方法名，就是映射文件中MappedStatement的id值，接口方法内的参数，就是传递给sql的参数。Mapper接口是没有实现类的，当调用接口方法时，接口全限名+方法名拼接字符串作为key值，可唯一定位一个MappedStatement，举例：com.mybatis3.mappers.StudentDao.findStudentById，可以唯一找到namespace为com.mybatis3.mappers.StudentDao下面id = findStudentById的MappedStatement。在Mybatis中，每一个<select>、<insert>、<update>、<delete>标签，都会被解析为一个MappedStatement对象。
-
-        Dao接口里的方法，是不能重载的，因为是全限名+方法名的保存和寻找策略。
-
-        Dao接口的工作原理是JDK动态代理，Mybatis运行时会使用JDK动态代理为Dao接口生成代理proxy对象，代理对象proxy会拦截接口方法，转而执行MappedStatement所代表的sql，然后将sql执行结果返回。
-
- 
-
-**10、Mybatis是如何进行分页的？分页插件的原理是什么？**
-
-        Mybatis使用RowBounds对象进行分页，它是针对ResultSet结果集执行的内存分页，而非物理分页，可以在sql内直接书写带有物理分页的参数来完成物理分页功能，也可以使用分页插件来完成物理分页。
-
-       分页插件的基本原理是使用Mybatis提供的插件接口，实现自定义插件，在插件的拦截方法内拦截待执行的sql，然后重写sql，根据dialect方言，添加对应的物理分页语句和物理分页参数。  
+**10、Mybatis是如何进行分页的？分页插件的原理是什么？**   
+Mybatis使用RowBounds对象进行分页，它是针对ResultSet结果集执行的内存分页，而非物理分页，可以在sql内直接书写带有物理分页的参数来完成物理分页功能，也可以使用分页插件来完成物理分页。    
+分页插件的基本原理是使用Mybatis提供的插件接口，实现自定义插件，在插件的拦截方法内拦截待执行的sql，然后重写sql，根据dialect方言，添加对应的物理分页语句和物理分页参数。  
        
- **11、Mybatis是如何将sql执行结果封装为目标对象并返回的？都有哪些映射形式？**
-
-        第一种是使用<resultMap>标签，逐一定义列名和对象属性名之间的映射关系。第二种是使用sql列的别名功能，将列别名书写为对象属性名，比如T_NAME AS NAME，对象属性名一般是name，小写，但是列名不区分大小写，Mybatis会忽略列名大小写，智能找到与之对应对象属性名，你甚至可以写成T_NAME AS NaMe，Mybatis一样可以正常工作。
-
-        有了列名与属性名的映射关系后，Mybatis通过反射创建对象，同时使用反射给对象的属性逐一赋值并返回，那些找不到映射关系的属性，是无法完成赋值的。
+ **11、Mybatis是如何将sql执行结果封装为目标对象并返回的？都有哪些映射形式？**   
+ 第一种是使用<resultMap>标签，逐一定义列名和对象属性名之间的映射关系。第二种是使用sql列的别名功能，将列别名书写为对象属性名，比如T_NAME AS NAME，对象属性名一般是name，小写，但是列名不区分大小写，Mybatis会忽略列名大小写，智能找到与之对应对象属性名，你甚至可以写成T_NAME AS NaMe，Mybatis一样可以正常工作。  
+       有了列名与属性名的映射关系后，Mybatis通过反射创建对象，同时使用反射给对象的属性逐一赋值并返回，那些找不到映射关系的属性，是无法完成赋值的。
 
  
 
-**12、如何执行批量插入?**  
+**12、如何执行批量插入?**   
 首先,创建一个简单的insert语句:
-
-```java
+  
+  ```java
     <insert id=”insertname”>
          insert into names (name) values (#{value})
     </insert>
-    ```
-    
-然后在java代码中像下面这样执行批处理插入:
+    ```    
+    然后在java代码中像下面这样执行批处理插入:
 ```java
   list<string> names = new arraylist();
     names.add(“fred”);
@@ -173,7 +163,7 @@ Mybatis在处理${}时，就是把${}替换成变量的值。
 
 ```
 
-**13、如何获取自动生成的(主)键值?**
+**13、如何获取自动生成的(主)键值?**  
 
 insert 方法总是返回一个int值 - 这个值代表的是插入的行数。
 
@@ -192,8 +182,8 @@ insert 方法总是返回一个int值 - 这个值代表的是插入的行数。
     system.out.println(“rows inserted = ” + rows);
     system.out.println(“generated key value = ” + name.getid());
 ``` 
-
-**14、在mapper中如何传递多个参数?**
+   
+  **14、在mapper中如何传递多个参数?**
 
 （1）第一种：
 //DAO层的函数
