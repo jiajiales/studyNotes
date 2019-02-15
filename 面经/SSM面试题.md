@@ -1,6 +1,6 @@
 
 ### SpringMVC:   
-框架结构如下图：  
+**框架结构如下图：**  
  ![28b6f2225f26106e7bab6cb44322ef17](media/28b6f2225f26106e7bab6cb44322ef17.png)
 ### Spring的面试题：
 
