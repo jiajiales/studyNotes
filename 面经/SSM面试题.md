@@ -63,7 +63,7 @@ singleton ：这种 bean 范围是默认的，这种范围确保不管接受到�
 prototype ：原形范围与单例范围相反，为每一个 bean 请求提供一个实例 。
 request ：在请求 bean 范围内会每一个来自客户端的网络请求创建一个实例，在请求完成以后， bean 会失效并被垃圾回收器回收 。
 Session ：与请求范围类似，确保每个 session 中有一个 bean 的实例，在 session 过期后， bean 会随之失效 。
-global-session ： global-session 和 Portlet 应用相关 。 当你的应用部署在 Portlet 容器中工作时，它包含很多 portlet。 如果你想要声明让所有的 portlet 共用全局的存储变量的话，那么这全局变量需要存储在 global-session 中 。
+global-session ： global-session 和 Portlet 应用相关 。 当你的应用部署在 Portlet 容器中工作时，它包含很多 portlet。 如果你想要声明让所有的 portlet 共用全局的存储变量的话，那么这全局变量需要存储在 global-session 中 。   
 **6 Spring 框架中的单例 Beans 是线程安全的么？**   
 实际上，大部分的 Spring bean 并没有可变的状态 ( 比如 Service 类和 DAO 类 ) ，所以在某种程度上说 Spring 的单例 bean 是线程安全的 。 如果你的 bean 有多种状态的话（比如 View Model 对象），就需要自行保证线程安全 。
 
@@ -72,7 +72,7 @@ no ：这是 Spring 框架的默认设置，在该设置下自动装配是关闭
 byName ：该选项可以根据 bean 名称设置依赖关系 。 当向一个 bean 中自动装配一个属性时，容器将根据 bean 的名称自动在在配置文件中查询一个匹配的 bean。 如果找到的话，就装配这个属性，如果没找到的话就报错 。
 byType ：该选项可以根据 bean 类型设置依赖关系 。 当向一个 bean 中自动装配一个属性时，容器将根据 bean 的类型自动在在配置文件中查询一个匹配的 bean。 如果找到的话，就装配这个属性，如果没找到的话就报错 。
 constructor ：构造器的自动装配和 byType 模式类似，但是仅仅适用于与有构造器相同参数的 bean ，如果在容器中没有找到与构造器参数类型一致的 bean ，那么将会抛出异常 。
-autodetect ：该模式自动探测使用构造器自动装配或者 byType 自动装配 。 首先，首先会尝试找合适的带参数的构造器，如果找到的话就是用构造器自动装配，如果在 bean 内部没有找到相应的构造器或者是无参构造器，容器就会自动选择 byTpe 的自动装配方式 。
+autodetect ：该模式自动探测使用构造器自动装配或者 byType 自动装配 。 首先，首先会尝试找合适的带参数的构造器，如果找到的话就是用构造器自动装配，如果在 bean 内部没有找到相应的构造器或者是无参构造器，容器就会自动选择 byTpe 的自动装配方式 。   
 **8 Spring 框架中用到了哪些设计模式？请举例说明**   
 Spring 框架中使用到了大量的设计模式，下面列举了比较有代表性的：
 
@@ -95,12 +95,12 @@ Spring 框架中使用到了大量的设计模式，下面列举了比较有代�
 不依赖于 Servlet API( 目标虽是如此 , 但是在实现时确实是依赖于 Servlet 的 )
 可以任意使用各种视图技术 , 而不仅仅局限于 JSP
 支持各种请求资源的映射策略
-它应是易于扩展的
+它应是易于扩展的   
 **10 Spring 框架的事务管理有哪些优点？**   
 它为不同的事务 API 如 JTA ， JDBC ， Hibernate ， JPA 和 JDO ，提供一个不变的编程模式 。
 它为编程式事务管理提供了一套简单的 API 而不是一些复杂的事务 API。
 它支持声明式事务管理 。
-它和 Spring 各种数据访问抽象层很好的集成 。
+它和 Spring 各种数据访问抽象层很好的集成 。   
 **11 AOP 的应用场景、原理 、AOP 好处？**   
 AOP–Aspect Oriented Programming 面向切面编程；用来封装横切关注点，具体可以在下面的场景中使用:
 
@@ -166,7 +166,7 @@ ApplicationContext：提供框架的实现，包括 BeanFactory 的所有功能�
 **16 说说 IoC 容器的初始化过程？**   
 Resource 定位：我们一般使用外部资源来描述 Bean 对象，所以 IOC 容器第一步就是需要定位 Resource 外部资源 。Resource 的定位其实就是 BeanDefinition 的资源定位，它是由 ResourceLoader 通过统一的 Resource 接口来完成的，这个 Resource 对各种形式的 BeanDefinition 的使用都提供了统一接口 。
 载入：第二个过程就是 BeanDefinition 的载入 ,BeanDefinitionReader 读取 , 解析 Resource 定位的资源，也就是将用户定义好的 Bean 表示成 IOC 容器的内部数据结构也就是 BeanDefinition, 在 IOC 容器内部维护着一个 BeanDefinition Map 的数据结构，通过这样的数据结构， IOC 容器能够对 Bean 进行更好的管理 。 在配置文件中每一个都对应着一个 BeanDefinition 对象 。
-注册：第三个过程则是注册，即向 IOC 容器注册这些 BeanDefinition ，这个过程是通过 BeanDefinitionRegistery 接口来实现的 。
+注册：第三个过程则是注册，即向 IOC 容器注册这些 BeanDefinition ，这个过程是通过 BeanDefinitionRegistery 接口来实现的 。   
 **17 说说 BeanFactory 和 ApplicationContext 的区别？ 什么是延迟实例化，它的优缺点是什么？**   
 BeanFactory 是 Spring 里面最低层的接口，提供了最简单的容器的功能，只提供了实例化对象和获取对象的功能 。
 
