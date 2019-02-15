@@ -2,14 +2,14 @@
 
 #### 一.SpringCloud面试题口述    
 **1.SpringCloud和Dubbo**   
-SpringCloud和Dubbo都是现在主流的微服务架构
-SpringCloud是Apache旗下的Spring体系下的微服务解决方案
-Dubbo是阿里系的分布式服务治理框架
-从技术维度上,其实SpringCloud远远的超过Dubbo,Dubbo本身只是实现了服务治理,而SpringCloud现在以及有21个子项目以后还会更多
-所以其实很多人都会说Dubbo和SpringCloud是不公平的
-但是由于RPC以及注册中心元数据等原因,在技术选型的时候我们只能二者选其一,所以我们常常为用他俩来对比
-服务的调用方式Dubbo使用的是RPC远程调用,而SpringCloud使用的是 Rest API,其实更符合微服务官方的定义
-服务的注册中心来看,Dubbo使用了第三方的ZooKeeper作为其底层的注册中心,实现服务的注册和发现,SpringCloud使用Spring Cloud Netflix Eureka实现注册中心,当然SpringCloud也可以使用ZooKeeper实现,但一般我们不会这样做
+SpringCloud和Dubbo都是现在主流的微服务架构    
+SpringCloud是Apache旗下的Spring体系下的微服务解决方案    
+Dubbo是阿里系的分布式服务治理框架    
+从技术维度上,其实SpringCloud远远的超过Dubbo,Dubbo本身只是实现了服务治理,而SpringCloud现在以及有21个子项目以后还会更多    
+所以其实很多人都会说Dubbo和SpringCloud是不公平的    
+但是由于RPC以及注册中心元数据等原因,在技术选型的时候我们只能二者选其一,所以我们常常为用他俩来对比    
+服务的调用方式Dubbo使用的是RPC远程调用,而SpringCloud使用的是 Rest API,其实更符合微服务官方的定义    
+服务的注册中心来看,Dubbo使用了第三方的ZooKeeper作为其底层的注册中心,实现服务的注册和发现,SpringCloud使用Spring Cloud Netflix Eureka实现注册中心,当然SpringCloud也可以使用ZooKeeper实现,但一般我们不会这样做    
 服务网关,Dubbo并没有本身的实现,只能通过其他第三方技术的整合,而SpringCloud有Zuul路由网关,作为路由服务器,进行消费者的请求分发,SpringCloud还支持断路器,与git完美集成分布式配置文件支持版本控制,事务总线实现配置文件的更新与服务自动装配等等一系列的微服务架构要素
 
 **2.技术选型**     
