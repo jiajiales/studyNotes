@@ -127,11 +127,9 @@ Mybatis在处理${}时，就是把${}替换成变量的值。
 
         Mybatis使用RowBounds对象进行分页，它是针对ResultSet结果集执行的内存分页，而非物理分页，可以在sql内直接书写带有物理分页的参数来完成物理分页功能，也可以使用分页插件来完成物理分页。
 
-       分页插件的基本原理是使用Mybatis提供的插件接口，实现自定义插件，在插件的拦截方法内拦截待执行的sql，然后重写sql，根据dialect方言，添加对应的物理分页语句和物理分页参数。
-
- 
-
-**11、Mybatis是如何将sql执行结果封装为目标对象并返回的？都有哪些映射形式？**
+       分页插件的基本原理是使用Mybatis提供的插件接口，实现自定义插件，在插件的拦截方法内拦截待执行的sql，然后重写sql，根据dialect方言，添加对应的物理分页语句和物理分页参数。  
+       
+ **11、Mybatis是如何将sql执行结果封装为目标对象并返回的？都有哪些映射形式？**
 
         第一种是使用<resultMap>标签，逐一定义列名和对象属性名之间的映射关系。第二种是使用sql列的别名功能，将列别名书写为对象属性名，比如T_NAME AS NAME，对象属性名一般是name，小写，但是列名不区分大小写，Mybatis会忽略列名大小写，智能找到与之对应对象属性名，你甚至可以写成T_NAME AS NaMe，Mybatis一样可以正常工作。
 
@@ -139,15 +137,17 @@ Mybatis在处理${}时，就是把${}替换成变量的值。
 
  
 
-**12、如何执行批量插入?**
-
+**12、如何执行批量插入?**  
 首先,创建一个简单的insert语句:
 
+```java
     <insert id=”insertname”>
          insert into names (name) values (#{value})
     </insert>
+    ```
+    
 然后在java代码中像下面这样执行批处理插入:
-
+```java
   list<string> names = new arraylist();
     names.add(“fred”);
     names.add(“barney”);
@@ -171,6 +171,7 @@ Mybatis在处理${}时，就是把${}替换成变量的值。
          sqlsession.close();
     }
 
+```
 
 **13、如何获取自动生成的(主)键值?**
 
@@ -179,7 +180,7 @@ insert 方法总是返回一个int值 - 这个值代表的是插入的行数。
 而自动生成的键值在 insert 方法执行完后可以被设置到传入的参数对象中。
 
 示例:
-
+```java
 <insert id=”insertname” usegeneratedkeys=”true” keyproperty=”id”>
      insert into names (name) values (#{name})
 </insert>
@@ -190,7 +191,7 @@ insert 方法总是返回一个int值 - 这个值代表的是插入的行数。
     // 完成后,id已经被设置到对象中
     system.out.println(“rows inserted = ” + rows);
     system.out.println(“generated key value = ” + name.getid());
-
+``` 
 
 **14、在mapper中如何传递多个参数?**
 
@@ -199,32 +200,41 @@ insert 方法总是返回一个int值 - 这个值代表的是插入的行数。
 Public UserselectUser(String name,String area);  
  
 //对应的xml,#{0}代表接收的是dao层中的第一个参数，#{1}代表dao层中第二参数，更多参数一致往后加即可。
+```java
 <select id="selectUser"resultMap="BaseResultMap">  
     select *  fromuser_user_t   whereuser_name = #{0} anduser_area=#{1}  
 </select>  
- 
+ ```
 （2）第2种： 使用 @param 注解:
+  ```java
     import org.apache.ibatis.annotations.param;
         public interface usermapper {
          user selectuser(@param(“username”) string username,
          @param(“hashedpassword”) string hashedpassword);
         }
+        
+      ```  
 然后,就可以在xml像下面这样使用(推荐封装为一个map,作为单个参数传递给mapper):
+
+```java
     <select id=”selectuser” resulttype=”user”>
          select id, username, hashedpassword
          from some_table
          where username = #{username}
          and hashedpassword = #{hashedpassword}
 </select>
+ ```
  
 （3）第三种：多个参数封装成map
+```java
 try{
+```
 //映射文件的命名空间.SQL片段的ID，就可以调用对应的映射文件中的SQL
  /**
  * 由于我们的参数超过了两个，而方法中只有一个Object参数收集
 * 因此我们使用Map集合来装载我们的参数
 */
- 
+ ```java
 Map<String, Object> map = new HashMap();
      map.put("start", start);
      map.put("end", end);
@@ -237,7 +247,7 @@ finally{
  MybatisUtil.closeSqlSession();
  }
 
-
+```
 **15、Mybatis动态sql是做什么的？都有哪些动态sql？能简述一下动态sql的执行原理不？**
 
 Mybatis动态sql可以让我们在Xml映射文件内，以标签的形式编写动态sql，完成逻辑判断和动态拼接sql的功能。
@@ -268,7 +278,7 @@ Hibernate属于全自动ORM映射工具，使用Hibernate查询关联对象或�
  
 
 **19、 一对一、一对多的关联查询 ？ **
-
+```java
 <mapper namespace="com.lcb.mapping.userMapper">  
     <!--association  一对一关联查询 -->  
     <select id="getClass" parameterType="int" resultMap="ClassesResultMap">  
@@ -305,7 +315,7 @@ Hibernate属于全自动ORM映射工具，使用Hibernate查询关联对象或�
         </collection>  
     </resultMap>  
 </mapper> 
-
+```
 
 **20、MyBatis实现一对一有几种方式?具体怎么操作的？**
 
