@@ -345,6 +345,9 @@ Mybatis使用RowBounds对象进行分页，它是针对ResultSet结果集执行�
  
 
 **12、如何执行批量插入?**   
+
+第1种：在java代码中反复调用   
+
 首先,创建一个简单的insert语句:
   
   ```java
@@ -377,7 +380,34 @@ Mybatis使用RowBounds对象进行分页，它是针对ResultSet结果集执行�
          sqlsession.close();
     }
 
-```
+```   
+    
+第2种：使用foreach进行批量插入    
+
+
+ ```java
+  <!-- 批量导入设备（从Excel表中导入设备列表） -->
+	<insert id="batchAddDevice">
+		INSERT INTO hk_device ( mac_address,device_type_id,descript,
+		device_group_id,
+		receive_num,is_delete,device_status,create_time,create_user,update_time ) VALUES
+ <!--//index表示在迭代过程中，每次迭代到的位置，-->
+		 <foreach collection="devices" item="device" index="index" separator=",">
+           ( #{device.macAddress},#{device.deviceTypeId},#{device.descript},
+			 #{device.deviceGroupId},#{device.receiveNum},#{device.isDelete},#{device.devStatus},
+			 #{device.createTime},#{device.createUser},#{device.updateTime} ) 
+        </foreach>
+		
+	</insert>
+ 
+ 
+ <!-- foreach标签，进行遍历 -->
+		<!-- collection：遍历的集合，这里是QueryVo的ids属性 -->
+		<!-- item：遍历的项目，可以随便写，，但是和后面的#{}里面要一致 -->
+		<!-- open：在前面添加的sql片段 -->
+		<!-- close：在结尾处添加的sql片段 -->
+		<!-- separator：指定遍历的元素之间使用的分隔符 -->
+ ```
 
 **13、如何获取自动生成的(主)键值?**  
 
