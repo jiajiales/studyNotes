@@ -85,7 +85,9 @@ Starters包含了许多项目中需要用到的依赖，它们能快速持续的
 Spring Boot 可以通过 @PropertySource,@Value,@Environment, @ConfigurationProperties 来绑定变量，具体请看这篇文章《Spring Boot读取配置的几种方式》。    
 **14、Spring Boot 支持哪些日志框架？推荐和默认的日志框架是哪个？**   
 Spring Boot 支持 Java Util Logging, Log4j2, Lockback 作为日志框架，如果你使用 Starters 启动器，Spring Boot 将使用 Logback 作为默认日志框架，具体请看这篇文章《Spring Boot日志集成》。    
-**15、SpringBoot 实现热部署有哪几种方式？**      
+**15、SpringBoot 实现热部署有哪几种方式？**   
+热部署是指在你修改项目BUG的时候对JSP或JAVA类进行了修改在不重启WEB服务器前提下能让修改生效。但是对配置文件的修改除外!    
+
 主要有两种方式：     
     
 Spring Loaded      
