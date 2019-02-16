@@ -388,8 +388,7 @@ Mybatis使用RowBounds对象进行分页，它是针对ResultSet结果集执行�
  ```java
   <!-- 批量导入设备（从Excel表中导入设备列表） -->
 	<insert id="batchAddDevice">
-		INSERT INTO hk_device ( mac_address,device_type_id,descript,
-		device_group_id,
+		INSERT INTO hk_device ( mac_address,device_type_id,descript, device_group_id,
 		receive_num,is_delete,device_status,create_time,create_user,update_time ) VALUES
  <!--//index表示在迭代过程中，每次迭代到的位置，-->
 		 <foreach collection="devices" item="device" index="index" separator=",">
@@ -401,7 +400,7 @@ Mybatis使用RowBounds对象进行分页，它是针对ResultSet结果集执行�
 	</insert>
  
  
- <!-- foreach标签，进行遍历 -->
+ 		<!-- foreach标签，进行遍历 -->
 		<!-- collection：遍历的集合，这里是QueryVo的ids属性 -->
 		<!-- item：遍历的项目，可以随便写，，但是和后面的#{}里面要一致 -->
 		<!-- open：在前面添加的sql片段 -->
