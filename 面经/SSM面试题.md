@@ -266,7 +266,8 @@ Mybatis在处理${}时，就是把${}替换成变量的值。
 
     <select id=”selectorder” parametertype=”int” resultetype=”me.gacl.domain.order”>
        select order_id id, order_no orderno ,order_price price form orders where order_id=#{id};
-    </select>
+    </select> 
+
 第2种： 通过<resultMap>来映射字段名和实体类属性名的一一对应的关系
 
  <select id="getOrder" parameterType="int" resultMap="orderresultmap">
