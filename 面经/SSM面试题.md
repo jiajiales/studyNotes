@@ -302,7 +302,31 @@ Mybatis在处理${}时，就是把${}替换成变量的值。
     <select id=”selectlike”>
          select * from foo where bar like "%"#{value}"%"
     </select>
+    
+第3种：使用sql中的字符串拼接函数
+    
 
+```java
+<select id="searchStudents" resultType="com.example.entity.StudentEntity"
+        parameterType="com.example.entity.StudentEntity">
+        SELECT * FROM test_student
+        <where>
+            <if test="age != null and age != '' and compare != null and compare != ''">
+                age
+                ${compare}
+                #{age}
+            </if>
+            <if test="name != null and name != ''">
+                AND name LIKE CONCAT(CONCAT('%',#{name},'%'))
+            </if>
+            <if test="address != null and address != ''">
+                AND address LIKE CONCAT(CONCAT('%',#{address},'%'))
+            </if>
+        </where>
+        ORDER BY id
+    </select>
+
+```
 
  **9、通常一个Xml映射文件，都会写一个Dao接口与之对应，请问，这个Dao接口的工作原理是什么？Dao接口里的方法，参数不同时，方法能重载吗？**   
 
