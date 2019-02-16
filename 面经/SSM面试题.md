@@ -400,7 +400,7 @@ Mybatis使用RowBounds对象进行分页，它是针对ResultSet结果集执行�
 	</insert>
  
  
- 		<!-- foreach标签，进行遍历 -->
+ 	<!-- foreach标签，进行遍历 -->
 		<!-- collection：遍历的集合，这里是QueryVo的ids属性 -->
 		<!-- item：遍历的项目，可以随便写，，但是和后面的#{}里面要一致 -->
 		<!-- open：在前面添加的sql片段 -->
@@ -414,6 +414,7 @@ insert 方法总是返回一个int值 - 这个值代表的是插入的行数。
 
 而自动生成的键值在 insert 方法执行完后可以被设置到传入的参数对象中。
 
+useGeneratedKeys true，需要你表主键自动增长    keyProperty id，主键名称为id
 示例:
 ```java
 <insert id=”insertname” usegeneratedkeys=”true” keyproperty=”id”>
