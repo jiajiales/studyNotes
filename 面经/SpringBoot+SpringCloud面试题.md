@@ -97,14 +97,14 @@ Spring-boot-devtools
 Spring-boot-devtools 使用方式可以参考这篇文章《Spring Boot实现热部署》。    
 **16、你如何理解 Spring Boot 配置加载顺序？**   
 在 Spring Boot 里面，可以使用以下几种方式来加载配置。   
-1）properties文件；
+1）properties文件；   
 2）YAML文件；   
 3）系统环境变量；   
 4）命令行参数；   
 等等……   
 具体请看这篇文章《Spring Boot 配置加载顺序详解》。   
 **17、Spring Boot 如何定义多套不同环境配置？**   
-提供多套配置文件，如：
+提供多套配置文件，如：    
 applcation.properties
 
 application-dev.properties
@@ -259,9 +259,9 @@ Eureka,ZooKeeper
 Rest,RPC,gRPC    
 服务熔断器    
 Hystrix    
-服务负载均衡    
-Ribbon,Nginx
-服务接口调用    
+服务负载均衡     
+Ribbon,Nginx     
+服务接口调用   
 Feign    
 消息队列    
 Kafka,RabbitMq,ActiveMq    
