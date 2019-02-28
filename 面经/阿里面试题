@@ -1,0 +1,89 @@
+八、Servlet的生命周期：
+答： 
+
+大致分为4部：Servlet类加载-->实例化-->服务-->销毁  
+
+1、Web Client向Servlet容器(Tomcat)发出Http请求。
+
+2、Servlet容器接收Client端的请求。
+
+3、Servlet容器创建一个HttpRequest对象，将Client的请求信息封装到这个对象中。
+
+4、Servlet创建一个HttpResponse对象。
+
+5、Servlet调用HttpServlet对象的service方法，把HttpRequest对象和HttpResponse对象作为参数传递给HttpServlet对象中。
+
+6、HttpServlet调用HttpRequest对象的方法，获取Http请求，并进行相应处理。
+
+7、处理完成HttpServlet调用HttpResponse对象的方法，返回响应数据。
+
+8、Servlet容器把HttpServlet的响应结果传回客户端。
+   
+其中的3个方法说明了Servlet的生命周期：
+
+1、init()：负责初始化Servlet对象。
+
+2、service()：负责响应客户端请求。
+
+3、destroy()：当Servlet对象推出时，负责释放占用资源。
+
+HTTP 报文包含内容：    
+
+主要包含四部分：
+
+1、request line
+
+2、header line
+
+3、blank line
+
+4、request body
+
+十、Statement与PreparedStatement的区别,什么是SQL注入，如何防止SQL注入
+
+
+答：  
+
+1、PreparedStatement支持动态设置参数，Statement不支持。
+
+2、PreparedStatement可避免如类似 单引号 的编码麻烦，Statement不可以。
+
+3、PreparedStatement支持预编译，Statement不支持。
+
+4、在sql语句出错时PreparedStatement不易检查，而Statement则更便于查错。
+
+5、PreparedStatement可防止Sql助于，更加安全，而Statement不行。
+
+什么叫缓存
+
+将数据存放在程序内存中，用于减轻数据查询的压力，提升读取数据的速度，提高性能。
+
+一级缓存
+
+■ 两个级别
+
+SqlSession级别的缓存，实现在同一个会话中数据的共享
+
+Statement级别的缓存，可以理解为缓存只对当前执行的这一个Statement有效，执行完后就会清空缓存
+
+■ 一级缓存的生命周期和SqlSession一致
+
+■ 设置为SqlSession级别的缓存，当执行insert/update/delete操作或close之后，缓存清空
+
+■ MyBatis的一级缓存最大范围是SqlSession内部，有多个SqlSession或者分布式的环境下，数据库写操作会引起脏数据，建议设定缓存级别为Statement
+
+二级缓存
+
+■ SqlSessionFactory级别的缓存，实现不同会话中数据的共享，是一个全局变量
+
+■ 存储作用域为Mapper的namespace级别
+
+■ 可自定义存储源，如 EHCache（分布式缓存框架）
+
+■ 当开启缓存后，数据的查询执行的流程就是二级缓存-> 一级缓存 -> 数据库
+
+■ 不同于一级缓存，二级缓存可设置是否允许刷新和刷新频率
+
+■ MyBatis的二级缓存不适应用于映射文件中存在多表查询的情况，如果多个映射文件对应的Sql操作都使用的是同一块缓存，那么缓存的粒度就变粗了，多个Mappernamespace下的所有操作都会对缓存使用造成影响。
+
+
