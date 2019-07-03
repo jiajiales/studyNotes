@@ -1,110 +1,91 @@
-跳到内容
- 
-Search or jump to…
-
-拉请求
-问题
-市井
-探索
- 
-@jiajiales 
-0
-1 0 jiajiales / studyNotes 私人
- 代码 问题29 拉取请求0 项目 0 安全 洞察 设置   
-studyNotes /面经 /minemap部署
-@jiajiales jiajiales 创建minemap部署
-5b8cf2f
-4分钟前
-695行（384 sloc）  17.4 KB
-    
-泊坞窗安装
+Docker安装
 ==========
 
-如图1所示，环境准备阶段 
+1、环境准备阶段 
 ----------------
 
-1，df -hT
+1、df -hT
 查看可用磁盘，需要超过300G以上磁盘-----------------如需要，手动配置分区
-mkfs.ext3 ----格式化命令。查看内存free -h需要64G
+mkfs.ext3 ----格式化命令。 查看内存free -h 需要64G
 
-2，确认系统版本，并上传对应的镜像文件ISO，挂载，编写荫源
+2、确认系统版本，并上传对应的镜像文件iso，挂载，编写yum源
 
-[root \ @localhost data] \ #cat / etc / redhat-release
+[root\@localhost data]\# cat /etc/redhat-release
 
-CentOS Linux版本7.5.1804（核心版）
+CentOS Linux release 7.5.1804 (Core)
 
-[root \ @localhost data] \＃mount -o loop /data/CentOS-7-x86_64-DVD-1810-7.6.iso
-到/ mnt /
+[root\@localhost data]\# mount -o loop /data/CentOS-7-x86_64-DVD-1810-7.6.iso
+/mnt/
 
-查看挂载命令？------ df -h（可查看空间挂载情况）
+查看挂载命令？ ------df -h (可查看空間 挂载情况)
 
-（遗留问题：中间需要删除什么文件来着-------------需要删除yum.repos.d文件下的文件重新创建）
+（遗留问题：中间需要删除什么文件来着？-------------需要删除yum.repos.d文件下的文件重新创建）
 
-\> filename：清空文件命令
+\> filename ：清空文件命令
 
-（loop代表去根文件找/ mnt前面是有空格的如果当前的目录有ISO镜像：mount -o
-CentOS-7-x86_64-DVD-1810-7.6.iso / mnt /）
+（loop代表去根文件找 /mnt前面是有空格的 如果当前的目录有ISO镜像：mount -o
+CentOS-7-x86_64-DVD-1810-7.6.iso /mnt/）
 
 vi /etc/yum.repos.d/centos.repo
 
 [centos7.6]
 
-名称= centos7.6
+name=centos7.6
 
-baseURL时=文件：/// MNT
+baseurl=file:///mnt
 
-gpgcheck = 0
+gpgcheck=0
 
-启用= 1
+enabled=1
 
-（遗留问题：对应文件是挂载在哪对应在哪吗？是的）
+（遗留问题：对应文件是挂载在哪对应在哪吗?：是的）
 
-备注：gpkcheck = 0表示对从这个源下载的rpm包不进行校验;
+备注: gpkcheck=0 表示对从这个源下载的rpm包不进行校验；
 
-enable = 1表示启用这个源。
+enable=1 表示启用这个源。
 
-安装GCC，测试本地百胜源是否成功。
+安装gcc，测试本地yum源是否成功。
 
-百胜清洁一切
+yum clean all
 
 yum install telnet
 
-yum install -y gcc gcc-c ++
+yum install -y gcc gcc-c++
 
-2，关掉所有防火前
+2、关掉所有防火前
 -----------------
 
-firewalld（7.0以上版本）iptables selinux getenforce ---- \>查看selinux状态的
+firewalld（7.0以上版本） iptables selinux getenforce----\> 查看selinux状态的
 
-vi / etc / selinux / config ------------- \> \> \> SELINUX = disabled ---需要重启
+vi /etc/selinux/config -------------\>\>\> SELINUX=disabled---需要重启
 
-service stop firewalld / systemctl stop firewalld ------停止防火墙
+service stop firewalld /systemctl stop firewalld ------停止防火墙
 
-systemctl禁用firewalld.service -----开机不启动防火墙
+systemctl disable firewalld.service -----开机不启动firewall
 
-查看防火墙状态：firewall-cmd -state
+查看防火墙状态：firewall-cmd –state
 
-\ -----如：非泊坞窗形式安装的Redis和Postgres的
+\-----eg:非docker形式安装redis和postgres
 
-\  -  3，安装redis的-4.0.10（）
+\--3、安装redis-4.0.10（）
 
-yum -y install gcc gcc -c ++ glibc ----------安装基础环境
+yum -y install gcc gcc-c++ glibc ----------安装基础环境
 
 tar zxvf redis-4.0.10.tar.gz ---解压redis
 
-ln -s /data/redis-4.0.10/ / data / redis ----做软连接
+ln -s /data/redis-4.0.10/ /data/redis ----做软连接
 
-cd / data / redis
+cd /data/redis
 
 make && make install -----安装redis
 
 mv redis.conf 7379.conf ----重名命
 
-vi 7379.conf ----- \>详见部署文档
+vi 7379.conf -----\> 详见部署文档
 
-cp / data / redis / utils / redis_init_script /etc/init.d/redis -----制作开机启动redis
+cp /data/redis/utils/redis_init_script /etc/init.d/redis -----制作开机启动redis
 
-chmod a + x /etc/init.d/redis
+chmod a+x /etc/init.d/redis
 
 vi /etc/init.d/redis
 
@@ -112,32 +93,32 @@ chkconfig redis on
 
 service redis start -----启动redis
 
-\  -  3，Postgres的----------详见部署文档
+\--3、postgres----------详见部署文档
 
-安装了PostGIS
+安装postgis
 
 yum -y install libxml2-devel
 
-3，开始安装搬运工
+3、开始安装docker
 -----------------
 
 在线安装
 
-确认联网，ping 114.114.114.114（通）ping www.baidu.com（不通）
+确认联网，ping 114.114.114.114(通) ping www.baidu.com（不通）
 
 vi /etc/resolv.conf --------配置DNS服务器
 
-名称服务器114.114.114.114
+nameserver 114.114.114.114
 
 ping www.baidu.com
 
-联网百度https://blog.csdn.net/qq_21816375/article/details/79832593
+联网 百度https://blog.csdn.net/qq_21816375/article/details/79832593
 
-cd /etc/yum.repos.d/  - 删除所有文件（或者备份）
+cd /etc/yum.repos.d/ --删除所有文件（或者备份）
 
 wget http://mirrors.163.com/.help/CentOS6-Base-163.repo
 
-yum install -y yum-utils device-mapper-persistent-data lvm2  - 驱动依赖
+yum install -y yum-utils device-mapper-persistent-data lvm2 --驱动依赖
 
 yum-config-manager --add-repo
 https://download.docker.com/linux/centos/docker-ce.repo ---安装docker的yum源
@@ -611,115 +592,103 @@ yum clean all ----------清YUM缓存
 
 查看文集夹大小的命令 : du -h --max-depth=1
 
-查看进程占用的端口：netstat -nap \ | grep pid
+查看 进程占用的端口：netstat -nap \| grep pid
 
-多级建立文件夹：mkdir -pa / b / c
+多级建立文件夹：mkdir –p a/b/c
 
 解压多个文件和并成一个文件：  
-例如linux.zip.001，linux.zip.002，linux.zip.003 ......  
-首先cat linux.zip \ * \> linux.zip \＃合并为一个zip包  
-然后解压linux.zip \＃解压zip包
+例如linux.zip.001, linux.zip.002, linux.zip.003...  
+首先 cat linux.zip\* \> linux.zip \#合并为一个zip包  
+然后 unzip linux.zip \#解压zip包
 
 虚拟机遇到的额外问题：
 
-虚拟机最开的分配空间不足后面开机重启加上硬盘扩容
+虚拟机最开的分配空间不足 后面开机重启加上硬盘扩容
 启动后看见的盘并没有新增空间的大小
 
-使用命令：fdisk -l（查看盘符）
+使用命令：fdisk –l （查看盘符）
 
-df -h（查看大小）
+df –h (查看大小)
 
-挂载：mount dev / sda2 / data1（将dev / sda2挂载在data1中实现互通）
+挂载:mount dev/sda2 /data1 (将dev/sda2 挂载在data1 中 实现互通)
 
-查看：df -h
+查看: df –h
 
-！[C：\\用户\\世纪高通\\应用程序数据\\本地\\温度\\ 1559618428（1）.PNG]（培养基/ 4096a36f31f99073227255ed3d141e76.png）
+![C:\\Users\\cennavi\\AppData\\Local\\Temp\\1559618428(1).png](media/4096a36f31f99073227255ed3d141e76.png)
 
-重启：systemctl重启docker
+重启: systemctl restart docker
 
-tail -f auth_console.log查看总日志
+tail -f auth_console.log 查看总日志
 
 互信环境搭建
 ============
 
-上传数据将8台机器做互信环境安装docker
+上传数据 将8台机器做互信环境 安装docker
 
 一：8台机器的互信工作
 
-1.ssh-keygen -t rsa（\＃下面一直按回车就好）
+1.ssh-keygen -t rsa （\#下面一直按回车就好）
 
-！[]（培养基/ 61fbc5234f620ce7b8979bcb71fc2647.png）
+![](media/61fbc5234f620ce7b8979bcb71fc2647.png)
 
-查看镜像：ls（cat / etc / redhat-release查看镜像？）
+查看镜像：ls （cat /etc/redhat-release查看镜像？）
 
 进入影藏文件：cd /root/.ssh/
 
 查看秘钥：cat id_rsa.pub
 
-！[C：\\用户\\世纪高通\\应用程序数据\\本地\\温度\\ 1559717497（1）.PNG]（培养基/ d9c5aaa8ad3981d479944a8a70a0e488.png）
+![C:\\Users\\cennavi\\AppData\\Local\\Temp\\1559717497(1).png](media/d9c5aaa8ad3981d479944a8a70a0e488.png)
 
 创建一个文件：touch authorized_keys
 
-！[C：\\用户\\世纪高通\\应用程序数据\\本地\\温度\\ 1559717773（1）.PNG]（培养基/ b48ddb77c0c34de67325e29b3bd258db.png）
+![C:\\Users\\cennavi\\AppData\\Local\\Temp\\1559717773(1).png](media/b48ddb77c0c34de67325e29b3bd258db.png)
 
-将秘钥都放在一个文件中:(两台机器的话都要放，注意：粘贴的时候被少了字符什么的）
+将秘钥都放在一个文件中：（两台机器的话都要放，注意：粘贴的时候被少了字符什么的）
 
-技巧：shift + g跳到最后一行shift + 4跳到最后一个字符
+技巧：shift+g 跳到最后一行 shift+4 跳到最后一个字符
 
-！[]（培养基/ a30c477a3708e32ba45073fc67fee4db.png）
+![](media/a30c477a3708e32ba45073fc67fee4db.png)
 
 测试：ssh 192.168.20.133
 
-二，上传文件
+二.上传文件
 
-三，安装搬运工
+三．安装docker
 
-\ -----------------网关配置------------------------------ ---
+\-----------------网关配置---------------------------------
 
-文件：的ifcfg-ens33
+文件：ifcfg-ens33
 
-TYPE =以太网
+TYPE=Ethernet
 
-PROXY_METHOD =无
+PROXY_METHOD=none
 
-BROWSER_ONLY =无
+BROWSER_ONLY=no
 
-BOOTPROTO =静态
+BOOTPROTO=static
 
-DEFROUTE = YES
+DEFROUTE=yes
 
-IPV4_FAILURE_FATAL =无
+IPV4_FAILURE_FATAL=no
 
-IPV6INIT = YES
+IPV6INIT=yes
 
-IPV6_AUTOCONF = YES
+IPV6_AUTOCONF=yes
 
-IPV6_DEFROUTE = YES
+IPV6_DEFROUTE=yes
 
-IPV6_FAILURE_FATAL =无
+IPV6_FAILURE_FATAL=no
 
-IPV6_ADDR_GEN_MODE =稳定的隐私
+IPV6_ADDR_GEN_MODE=stable-privacy
 
-NAME = ens33
+NAME=ens33
 
-UUID = 2c5d5257-b814-4333-be22-26676e660896
+UUID=2c5d5257-b814-4333-be22-26676e660896
 
-DEVICE = ens33
+DEVICE=ens33
 
-ONBOOT = YES
+ONBOOT=yes
 
-GATEWAY = 192.168.20.2
+GATEWAY=192.168.20.2
 
-IPADDR = 192.168.20.135
-©2019 GitHub，Inc。
-条款
-隐私
-安全
-状态
-救命
-联系GitHub
-价钱
-API
-训练
-博客
-关于
+IPADDR=192.168.20.135
